@@ -1,21 +1,30 @@
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+
 import Spacer from "../../commons/components/Spacer";
 import RippleButton from "../../commons/components/RippleButton";
 
 import loginSVG from "/login.svg";
 import TextInput from "../../commons/components/form/TextInput";
-import { useForm } from "react-hook-form";
 
-interface FormData {
-  email: string;
-  password: string;
-}
+const formSchema = yup
+  .object({
+    email: yup.string().email().required(),
+    password: yup.string().required(),
+  })
+  .required();
+
+type FormData = yup.InferType<typeof formSchema>;
 
 const Login = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<FormData>({
+    resolver: yupResolver(formSchema),
+  });
   const onSubmit = handleSubmit((data) => console.log(data));
 
   return (
