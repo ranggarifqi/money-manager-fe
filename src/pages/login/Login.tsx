@@ -12,7 +12,7 @@ const Login = () => {
 
   return (
     <div className="flex items-center justify-center h-screen bg-gradient-to-br from-main from-40% to-main-50">
-      <div className="container bg-light-shades flex flex-wrap items-center justify-start h-full max-h-[500px]">
+      <div className="container h-full max-h-[500px] bg-light-shades flex flex-col sm:flex-row md:flex-wrap items-center justify-start">
         <div className="flex-1 h-full flex items-center p-10">
           <img src={loginSVG} className="w-full" alt="Login" />
         </div>
