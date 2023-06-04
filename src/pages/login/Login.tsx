@@ -11,15 +11,15 @@ const Login = () => {
   }, []);
 
   return (
-    <div className="flex items-center justify-center h-screen bg-main">
-      <div className="container bg-light-shades py-8 flex flex-wrap items-center justify-center lg:justify-between bg-light-shades min-h-[500px]">
-        <div className="shrink-1 grow-0 basis-auto md:mb-0 md:w-6/12 md:shrink-0 lg:w-6/12 xl:w-6/12">
+    <div className="flex items-center justify-center h-screen bg-gradient-to-br from-main from-40% to-main-50">
+      <div className="container bg-light-shades flex flex-wrap items-center justify-start h-full max-h-[500px]">
+        <div className="flex-1 h-full flex items-center p-10">
           <img src={loginSVG} className="w-full" alt="Login" />
         </div>
-        <div className="mb-12 md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12 p-8">
+        <div className="flex-1 p-10 bg-white h-full flex items-center">
           <form>
             <div className="flex flex-row items-center justify-center lg:justify-start">
-              <h1 className="mb-0 mr-4">Welcome</h1>
+              <h1 className="mb-0 mr-4">Welcome! Please Login to Continue</h1>
             </div>
             <Spacer height={20} />
             <div className="relative mb-6" data-te-input-wrapper-init>
