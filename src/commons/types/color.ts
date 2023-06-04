@@ -1,4 +1,4 @@
-export type IColor =
+export type IBackgroundColor =
   | "primary"
   | "dark-accent"
   | "light-accent"
@@ -8,3 +8,5 @@ export type IColor =
   | "info"
   | "warning"
   | "danger";
+
+export type ITextColor = "light" | "dark";
