@@ -39,13 +39,13 @@ const Login = () => {
             <Spacer height={20} />
             <TextInput
               label="Email Address"
-              {...register("email", { required: "Email Address is required" })}
+              {...register("email")}
               errorText={errors.email?.message ?? undefined}
             />
             <Spacer height={10} />
             <TextInput
               label="Password"
-              {...register("password", { required: "Password is required" })}
+              {...register("password")}
               errorText={errors.password?.message ?? undefined}
             />
             <Spacer height={20} />
