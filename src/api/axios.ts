@@ -1,5 +1,11 @@
 import axios from "axios";
 
+export interface SuccessResponse<T> {
+  statusCode: number;
+  message?: string;
+  data: T;
+}
+
 const instance = axios.create({
   baseURL: import.meta.env.BASE_URL,
   timeout: 60000,
