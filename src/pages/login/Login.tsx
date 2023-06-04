@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { initTE, Input } from "tw-elements";
 import Spacer from "../../commons/components/Spacer";
-import RippleButton from "../../commons/components/Button";
+import RippleButton from "../../commons/components/RippleButton";
 
 import loginSVG from "/login.svg";
 
