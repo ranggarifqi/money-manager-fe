@@ -1,7 +1,5 @@
 import classNames from "classnames";
 import React from "react";
-import { useEffect } from "react";
-import { initTE, Input } from "tw-elements";
 
 interface OwnProps {
   label?: string;
@@ -16,10 +14,6 @@ type Props = OwnProps &
 
 const TextInput = React.forwardRef<HTMLInputElement, Props>(
   ({ errorText, label, onChange, onBlur, name }: Props, ref) => {
-    useEffect(() => {
-      initTE({ Input });
-    }, []);
-
     const inputClassNames = classNames(defaultInputClassNames, {
       "ring-1 ring-danger outline-0": !!errorText,
       "focus:outline-none focus:border-main focus:ring-1 focus:ring-main":
