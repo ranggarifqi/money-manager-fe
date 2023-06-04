@@ -13,9 +13,7 @@ const Login = () => {
         </div>
         <div className="flex-1 p-10 bg-white h-full flex items-center">
           <form>
-            <div className="flex flex-row items-center justify-center lg:justify-start">
-              <h1 className="mb-0 mr-4">Welcome! Please Login to Continue</h1>
-            </div>
+            <h1 className="mb-0 mr-4">Welcome! Please Login to Continue</h1>
             <Spacer height={20} />
             <TextInput label="Email Address" />
             <Spacer height={10} />
