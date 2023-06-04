@@ -35,6 +35,9 @@ export default {
         warning: "#bba225",
         danger: "#f44336",
       },
+      fontFamily: {
+        nunito: ["Nunito", "serif"],
+      },
     },
   },
   // eslint-disable-next-line no-undef

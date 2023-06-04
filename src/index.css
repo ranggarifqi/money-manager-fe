@@ -1,12 +1,19 @@
 @tailwind base;
 
+@font-face {
+  font-family: "Nunito";
+  src: url("../public/fonts/Nunito/Nunito-VariableFont_wght.ttf");
+}
+
 @layer base {
   html {
     @apply text-neutral-800;
+    @apply font-nunito;
   }
   html.dark {
     @apply text-neutral-50;
     @apply bg-neutral-800;
+    @apply font-nunito;
   }
 }
 
