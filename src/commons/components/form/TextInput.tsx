@@ -4,25 +4,37 @@ import { initTE, Input } from "tw-elements";
 
 interface Props {
   label?: string;
+  errorText?: string;
 }
 
-const TextInput = ({ label = "Label" }: Props) => {
+const TextInput = ({ label = "Label", errorText }: Props) => {
   useEffect(() => {
     initTE({ Input });
   }, []);
 
+  const inputClassNames = classNames(defaultInputClassNames, {
+    "ring-1 ring-danger outline-0": !!errorText,
+    "focus:outline-none focus:border-main focus:ring-1 focus:ring-main":
+      !errorText,
+  });
+
+  const labelClassName = classNames(
+    "block text-sm font-medium text-dark-shades",
+    {
+      "text-danger": !!errorText,
+    }
+  );
+
   return (
     <label className="block">
-      <span className="block text-sm font-medium text-dark-shades">{label}</span>
-      <input
-        type="text"
-        className={defaultClassNames}
-      />
+      <span className={labelClassName}>{label}</span>
+      <input type="text" className={inputClassNames} />
+      {errorText && <span className="text-sm text-danger">{errorText}</span>}
     </label>
   );
 };
 
-const defaultClassNames = classNames(
+const defaultInputClassNames = classNames(
   "mt-1",
   "block",
   "w-full",
@@ -33,8 +45,7 @@ const defaultClassNames = classNames(
   "text-sm",
   "shadow-sm",
   "placeholder-slate-400",
-  "focus:outline-none focus:border-main focus:ring-1 focus:ring-main",
   "transition ease-in-out duration-300"
-)
+);
 
 export default TextInput;
