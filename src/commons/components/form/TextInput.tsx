@@ -2,12 +2,18 @@ import classNames from "classnames";
 import { useEffect } from "react";
 import { initTE, Input } from "tw-elements";
 
-interface Props {
+interface OwnProps {
   label?: string;
   errorText?: string;
 }
 
-const TextInput = ({ label = "Label", errorText }: Props) => {
+type Props = OwnProps &
+  React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  >;
+
+const TextInput = ({ label = "Label", errorText, ...inputProps }: Props) => {
   useEffect(() => {
     initTE({ Input });
   }, []);
@@ -28,7 +34,7 @@ const TextInput = ({ label = "Label", errorText }: Props) => {
   return (
     <label className="block">
       <span className={labelClassName}>{label}</span>
-      <input type="text" className={inputClassNames} />
+      <input type="text" className={inputClassNames} {...inputProps} />
       {errorText && <span className="text-sm text-danger">{errorText}</span>}
     </label>
   );
