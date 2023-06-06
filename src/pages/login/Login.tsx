@@ -7,8 +7,7 @@ import RippleButton from "../../commons/components/RippleButton";
 
 import loginSVG from "/login.svg";
 import TextInput from "../../commons/components/form/TextInput";
-import { useMutation } from "@tanstack/react-query";
-import { login } from "../../api/fn/login";
+import { useLoginMutation } from "../../store/session/api";
 
 const formSchema = yup
   .object({
@@ -28,12 +27,10 @@ const Login = () => {
     resolver: yupResolver(formSchema),
   });
 
-  const mutation = useMutation({
-    mutationFn: login,
-  });
+  const [login, loginState] = useLoginMutation();
 
   const onSubmit = handleSubmit((data) => {
-    mutation.mutate({
+    login({
       email: data.email,
       password: data.password,
     });
@@ -62,9 +59,13 @@ const Login = () => {
               errorText={errors.password?.message ?? undefined}
             />
             <Spacer height={20} />
-            <RippleButton block type="submit">
-              Login
-            </RippleButton>
+            {loginState.isLoading ? (
+              <p>Loading...</p>
+            ) : (
+              <RippleButton block type="submit">
+                Login
+              </RippleButton>
+            )}
           </form>
         </div>
       </div>

@@ -1,5 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import jwtDecode from "jwt-decode";
+import { sessionAPI } from "./api";
+import { ErrorResponse } from "../rootAPI";
 
 interface IUserCredential {
   userId: string;
@@ -12,11 +14,13 @@ interface IUserCredential {
 export interface SessionState {
   authToken: string | null;
   credential: IUserCredential | null;
+  error: string | object | string[] | null;
 }
 
 const initialState: SessionState = {
   authToken: null,
   credential: null,
+  error: null,
 };
 
 interface LoginSuccessPayload {
@@ -37,6 +41,27 @@ export const sessionSlice = createSlice({
       state.authToken = null;
       state.credential = null;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addMatcher(sessionAPI.endpoints.login.matchPending, (state) => {
+      state.error = null;
+    });
+    builder.addMatcher(
+      sessionAPI.endpoints.login.matchFulfilled,
+      (state, action) => {
+        state.authToken = action.payload;
+
+        const decoded = jwtDecode<IUserCredential>(action.payload);
+        state.credential = decoded;
+        state.error = null;
+      }
+    );
+    builder.addMatcher(
+      sessionAPI.endpoints.login.matchRejected,
+      (state, action) => {
+        state.error = (action.payload?.data as ErrorResponse).message;
+      }
+    );
   },
 });
 
