@@ -1,6 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import jwtDecode from "jwt-decode";
-import { sessionAPI } from "./api";
 
 interface IUserCredential {
   userId: string;
