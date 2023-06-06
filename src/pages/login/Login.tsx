@@ -7,6 +7,8 @@ import RippleButton from "../../commons/components/RippleButton";
 
 import loginSVG from "/login.svg";
 import TextInput from "../../commons/components/form/TextInput";
+import { useMutation } from "@tanstack/react-query";
+import { login } from "../../api/fn/login";
 
 const formSchema = yup
   .object({
@@ -25,7 +27,17 @@ const Login = () => {
   } = useForm<FormData>({
     resolver: yupResolver(formSchema),
   });
-  const onSubmit = handleSubmit((data) => console.log(data));
+
+  const mutation = useMutation({
+    mutationFn: login,
+  });
+
+  const onSubmit = handleSubmit((data) => {
+    mutation.mutate({
+      email: data.email,
+      password: data.password,
+    });
+  });
 
   return (
     <div className="flex items-center justify-center h-screen bg-gradient-to-br from-main from-40% to-main-50">
@@ -44,6 +56,7 @@ const Login = () => {
             />
             <Spacer height={10} />
             <TextInput
+              type="password"
               label="Password"
               {...register("password")}
               errorText={errors.password?.message ?? undefined}

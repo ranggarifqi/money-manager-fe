@@ -13,7 +13,7 @@ type Props = OwnProps &
   >;
 
 const TextInput = React.forwardRef<HTMLInputElement, Props>(
-  ({ errorText, label, onChange, onBlur, name }: Props, ref) => {
+  ({ errorText, label, ...inputProps }: Props, ref) => {
     const inputClassNames = classNames(defaultInputClassNames, {
       "ring-1 ring-danger outline-0": !!errorText,
       "focus:outline-none focus:border-main focus:ring-1 focus:ring-main":
@@ -34,9 +34,7 @@ const TextInput = React.forwardRef<HTMLInputElement, Props>(
           ref={ref}
           type="text"
           className={inputClassNames}
-          name={name}
-          onChange={onChange}
-          onBlur={onBlur}
+          {...inputProps}
         />
         {errorText && <span className="text-sm text-danger">{errorText}</span>}
       </label>
