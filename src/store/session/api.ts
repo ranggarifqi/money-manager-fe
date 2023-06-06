@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { SuccessResponse } from "../rootAPI";
+import { ErrorResponse, SuccessResponse } from "../rootAPI";
 
 interface ILoginPayload {
   email: string;
@@ -13,7 +13,7 @@ export const sessionAPI = createApi({
   }),
   tagTypes: ["Session"],
   endpoints: (build) => ({
-    login: build.mutation<SuccessResponse<string>, ILoginPayload>({
+    login: build.mutation<string, ILoginPayload>({
       query: (payload) => {
         return {
           url: `/login`,
@@ -21,7 +21,7 @@ export const sessionAPI = createApi({
           body: payload,
         };
       },
-      transformResponse: (response: { data: SuccessResponse<string> }) => {
+      transformResponse: (response: SuccessResponse<string>) => {
         return response.data;
       },
       invalidatesTags: ["Session"],
