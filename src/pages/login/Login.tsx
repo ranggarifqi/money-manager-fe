@@ -8,6 +8,8 @@ import RippleButton from "../../commons/components/RippleButton";
 import loginSVG from "/login.svg";
 import TextInput from "../../commons/components/form/TextInput";
 import { useLoginMutation } from "../../store/session/api";
+import { useAppSelector } from "../../commons/hooks/useAppSelector";
+import { sltSessionError } from "../../store/session/selector";
 
 const formSchema = yup
   .object({
@@ -26,6 +28,8 @@ const Login = () => {
   } = useForm<FormData>({
     resolver: yupResolver(formSchema),
   });
+
+  const sessionError = useAppSelector(sltSessionError);
 
   const [login, loginState] = useLoginMutation();
 
@@ -62,9 +66,12 @@ const Login = () => {
             {loginState.isLoading ? (
               <p>Loading...</p>
             ) : (
-              <RippleButton block type="submit">
-                Login
-              </RippleButton>
+              <>
+                <RippleButton block type="submit">
+                  Login
+                </RippleButton>
+                {sessionError && <p className="text-danger text-sm mt-1">{sessionError}</p>}
+              </>
             )}
           </form>
         </div>

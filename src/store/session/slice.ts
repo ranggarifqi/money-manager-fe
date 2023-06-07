@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import jwtDecode from "jwt-decode";
 import { sessionAPI } from "./api";
 import { ErrorResponse } from "../rootAPI";
+import { stringifyErrorMessage } from "../commons/stringifyErrorMessage";
 
 interface IUserCredential {
   userId: string;
@@ -14,7 +15,7 @@ interface IUserCredential {
 export interface SessionState {
   authToken: string | null;
   credential: IUserCredential | null;
-  error: string | object | string[] | null;
+  error: string | null;
 }
 
 const initialState: SessionState = {
@@ -59,7 +60,9 @@ export const sessionSlice = createSlice({
     builder.addMatcher(
       sessionAPI.endpoints.login.matchRejected,
       (state, action) => {
-        state.error = (action.payload?.data as ErrorResponse).message;
+        const errMessage = (action.payload?.data as ErrorResponse).message;
+        const strErrMessage = stringifyErrorMessage(errMessage);
+        state.error = strErrMessage;
       }
     );
   },
