@@ -9,8 +9,9 @@ import loginSVG from "/login.svg";
 import TextInput from "../../commons/components/form/TextInput";
 import { useLoginMutation } from "../../store/session/api";
 import { useAppSelector } from "../../commons/hooks/useAppSelector";
-import { sltSessionError } from "../../store/session/selector";
+import { sltIsLoggedIn, sltSessionError } from "../../store/session/selector";
 import Spinner from "../../commons/components/Spinner";
+import { Navigate } from "react-router-dom";
 
 const formSchema = yup
   .object({
@@ -31,6 +32,7 @@ const Login = () => {
   });
 
   const sessionError = useAppSelector(sltSessionError);
+  const isLoggedIn = useAppSelector(sltIsLoggedIn);
 
   const [login, loginState] = useLoginMutation();
 
@@ -40,6 +42,10 @@ const Login = () => {
       password: data.password,
     });
   });
+
+  if (isLoggedIn) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="flex items-center justify-center h-screen bg-gradient-to-br from-main from-40% to-main-50">

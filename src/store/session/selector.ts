@@ -16,3 +16,7 @@ export const sltAuthToken = createSelector(sltSession, (session) => {
 export const sltSessionError = createSelector(sltSession, (session) => {
   return session.error;
 });
+
+export const sltIsLoggedIn = createSelector(sltCredential, (credential) => {
+  return !!credential;
+});
