@@ -25,7 +25,15 @@ export default {
         "4xl": "2rem",
       },
       colors: {
-        main: "#00A86B",
+        main: {
+          DEFAULT: "#00A86B",
+          50: "#DCF1CC",
+          100: "#B9E7AA",
+          200: "#66D06A",
+          300: "#00A86B",
+          400: "#007A82",
+          600: "#002B5A",
+        },
         "light-accent": "#5CB2BA",
         "dark-accent": "#896361",
         "light-shades": "#F2EFF0",
@@ -34,6 +42,9 @@ export default {
         success: "#3db25d",
         warning: "#bba225",
         danger: "#f44336",
+      },
+      fontFamily: {
+        nunito: ["Nunito", "serif"],
       },
     },
   },
