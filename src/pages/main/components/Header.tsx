@@ -1,3 +1,4 @@
+import { Bars3Icon } from "@heroicons/react/20/solid";
 import { useEffect } from "react";
 import { Collapse, Dropdown, initTE } from "tw-elements";
 
@@ -42,49 +43,7 @@ const Header = () => {
           id="navbarSupportedContent1"
           data-te-collapse-item
         >
-          <a
-            className="mb-4 mr-2 mt-3 flex items-center text-neutral-900 hover:text-neutral-900 focus:text-neutral-900 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400 lg:mb-0 lg:mt-0"
-            href="#"
-          >
-            <img
-              src="https://tecdn.b-cdn.net/img/logo/te-transparent-noshadows.webp"
-              style={{ height: "15px" }}
-              alt=""
-              loading="lazy"
-            />
-          </a>
-          <ul
-            className="list-style-none mr-auto flex flex-col pl-0 lg:flex-row"
-            data-te-navbar-nav-ref
-          >
-            <li className="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
-              <a
-                className="text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-zinc-400"
-                href="#"
-                data-te-nav-link-ref
-              >
-                Dashboard
-              </a>
-            </li>
-            <li className="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
-              <a
-                className="text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
-                href="#"
-                data-te-nav-link-ref
-              >
-                Team
-              </a>
-            </li>
-            <li className="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
-              <a
-                className="text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
-                href="#"
-                data-te-nav-link-ref
-              >
-                Projects
-              </a>
-            </li>
-          </ul>
+          <Bars3Icon className="h-6 w-6 cursor-pointer" />
         </div>
 
         <div className="relative flex items-center">
