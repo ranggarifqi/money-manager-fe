@@ -2,6 +2,7 @@ import { Navigate } from "react-router-dom";
 import { useAppSelector } from "../../commons/hooks/useAppSelector";
 import { sltIsLoggedIn } from "../../store/session/selector";
 import Footer from "./components/Footer";
+import Header from "./components/Header";
 
 const Main = () => {
   const isLoggedIn = useAppSelector(sltIsLoggedIn);
@@ -12,6 +13,7 @@ const Main = () => {
 
   return (
     <div className="h-screen flex flex-col justify-between">
+      <Header />
       <div className="mx-auto mt-6 flex max-w-sm items-center space-x-4 rounded-xl bg-white p-6 shadow-lg">
         <div className="shrink-0">
           <img
