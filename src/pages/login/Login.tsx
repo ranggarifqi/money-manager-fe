@@ -10,6 +10,7 @@ import TextInput from "../../commons/components/form/TextInput";
 import { useLoginMutation } from "../../store/session/api";
 import { useAppSelector } from "../../commons/hooks/useAppSelector";
 import { sltSessionError } from "../../store/session/selector";
+import Spinner from "../../commons/components/Spinner";
 
 const formSchema = yup
   .object({
@@ -64,13 +65,15 @@ const Login = () => {
             />
             <Spacer height={20} />
             {loginState.isLoading ? (
-              <p>Loading...</p>
+              <Spinner />
             ) : (
               <>
                 <RippleButton block type="submit">
                   Login
                 </RippleButton>
-                {sessionError && <p className="text-danger text-sm mt-1">{sessionError}</p>}
+                {sessionError && (
+                  <p className="text-danger text-sm mt-1">{sessionError}</p>
+                )}
               </>
             )}
           </form>
