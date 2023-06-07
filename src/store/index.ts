@@ -1,18 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
-import sessionReducer from "./session/slice";
+
 import { sessionAPI } from "./session/api";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
+import persistedRootReducer from "./rootReducer";
+import persistStore from "redux-persist/es/persistStore";
 
 export const store = configureStore({
-  reducer: {
-    session: sessionReducer,
-
-    [sessionAPI.reducerPath]: sessionAPI.reducer,
-  },
+  reducer: persistedRootReducer,
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(sessionAPI.middleware);
   },
 });
+
+export const persistor = persistStore(store);
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
