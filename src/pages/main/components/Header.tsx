@@ -10,11 +10,9 @@ const Header = () => {
         <button
           className="block border-0 bg-transparent px-2 text-neutral-500 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-neutral-200"
           type="button"
+          data-te-sidenav-toggle-ref
           data-te-collapse-init
-          data-te-target="#navbarSupportedContent1"
-          aria-controls="navbarSupportedContent1"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
+          data-te-target="#sidenav"
         >
           <span className="[&>svg]:w-7">
             <svg

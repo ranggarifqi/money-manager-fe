@@ -3,6 +3,7 @@ import { useAppSelector } from "../../commons/hooks/useAppSelector";
 import { sltIsLoggedIn } from "../../store/session/selector";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import SideNav from "./components/SideNav";
 
 const Main = () => {
   const isLoggedIn = useAppSelector(sltIsLoggedIn);
@@ -12,13 +13,16 @@ const Main = () => {
   }
 
   return (
-    <div className="h-screen flex flex-col justify-between">
-      <Header />
-      <div className="h-full">
-        Content
+    <>
+      <SideNav />
+      <div id="content" className="h-screen flex flex-col justify-between">
+        <Header />
+        <div className="h-full">
+          Content
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </>
   );
 };
 
