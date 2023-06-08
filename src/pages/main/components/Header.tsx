@@ -1,4 +1,4 @@
-import Avatar from "./Header/Avatar";
+import LogoutButton from "./Header/LogoutButton";
 
 const Header = () => {
   return (
@@ -31,7 +31,7 @@ const Header = () => {
         </button>
 
         <div className="relative flex items-center">
-          <Avatar />
+          <LogoutButton />
         </div>
       </div>
     </nav>
