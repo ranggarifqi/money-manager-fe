@@ -2,6 +2,7 @@ import { HomeIcon } from "@heroicons/react/24/outline";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Sidenav, initTE } from "tw-elements";
+import UserInfo from "./SideNav/UserInfo";
 
 const SideNav = () => {
   useEffect(() => {
@@ -17,13 +18,8 @@ const SideNav = () => {
       data-te-sidenav-content="#content"
       data-te-sidenav-hidden="false"
     >
-      <div className="mt-6">
-        <div id="header-content" className="pl-4">
-          <h4 className="mb-2 text-2xl font-medium leading-[1.2]">Ann Smith</h4>
-          <p className="mb-4">ann_s@mdbootstrap.com</p>
-        </div>
-        <hr className="border-gray-300" />
-      </div>
+      <UserInfo />
+      <hr className="border-gray-300" />
       <div>
         <ul
           className="relative m-0 list-none px-[0.2rem]"
