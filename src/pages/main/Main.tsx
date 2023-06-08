@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { useAppSelector } from "../../commons/hooks/useAppSelector";
 import { sltIsLoggedIn } from "../../store/session/selector";
 import Footer from "./components/Footer";
@@ -17,8 +17,8 @@ const Main = () => {
       <SideNav />
       <div id="content" className="h-screen flex flex-col justify-between">
         <Header />
-        <div className="h-full">
-          Content
+        <div className="h-full p-8">
+          <Outlet />
         </div>
         <Footer />
       </div>
