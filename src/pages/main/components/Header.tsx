@@ -1,12 +1,6 @@
-import { Popover2 } from "@blueprintjs/popover2";
-import { useEffect } from "react";
-import { Collapse, Dropdown, initTE } from "tw-elements";
+import Avatar from "./Header/Avatar";
 
 const Header = () => {
-  useEffect(() => {
-    initTE({ Collapse, Dropdown });
-  }, []);
-
   return (
     <nav
       className="flex-no-wrap relative flex w-full items-center justify-between bg-neutral-100 py-2 shadow-md shadow-black/5 dark:bg-neutral-600 dark:shadow-black/10 lg:flex-wrap lg:justify-start lg:py-4"
@@ -39,9 +33,7 @@ const Header = () => {
         </button>
 
         <div className="relative flex items-center">
-          <Popover2 content={<div>asd</div>}>
-            <div className="rounded-full h-8 w-8 bg-main"></div>
-          </Popover2>
+          <Avatar />
         </div>
       </div>
     </nav>
