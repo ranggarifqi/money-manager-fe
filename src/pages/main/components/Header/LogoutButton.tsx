@@ -11,7 +11,7 @@ const LogoutButton = () => {
 
   return (
     <ArrowLeftOnRectangleIcon
-      className="font-black-100 h-7 w-7 cursor-pointer"
+      className="text-white h-7 w-7 cursor-pointer"
       onClick={onClick}
     />
   );

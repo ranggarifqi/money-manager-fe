@@ -17,7 +17,7 @@ const Main = () => {
       <SideNav />
       <div id="content" className="h-screen flex flex-col justify-between">
         <Header />
-        <div className="h-full p-8">
+        <div className="h-full p-8 bg-light-shades">
           <Outlet />
         </div>
         <Footer />
