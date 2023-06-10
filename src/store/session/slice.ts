@@ -45,6 +45,13 @@ export const sessionSlice = createSlice({
       state.authToken = null;
       state.credential = null;
     },
+    refreshSuccess: (state, action: PayloadAction<string>) => {
+      state.authToken = action.payload;
+      const decoded = jwtDecode<IUserCredential>(action.payload);
+      state.credential = decoded;
+
+      localStorage.setItem("accessToken", action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(refreshSession.pending, (state) => {
@@ -90,5 +97,5 @@ export const sessionSlice = createSlice({
   },
 });
 
-export const { loginSuccess, logoutSuccess } = sessionSlice.actions;
+export const { loginSuccess, logoutSuccess, refreshSuccess } = sessionSlice.actions;
 export default sessionSlice.reducer;

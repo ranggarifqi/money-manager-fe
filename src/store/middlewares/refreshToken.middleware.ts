@@ -1,6 +1,6 @@
 import { Middleware } from "@reduxjs/toolkit";
-import { refreshSession } from "../session/thunk";
 import { AppDispatch } from "..";
+import { logoutSuccess } from "../session/slice";
 
 const refreshTokenMiddleware: Middleware =
   ({ dispatch }) =>
@@ -8,9 +8,11 @@ const refreshTokenMiddleware: Middleware =
   (action) => {
     const isRejected = action.type.indexOf("executeMutation/rejected") !== -1;
     const isUnauthorized = isRejected && action.payload.status === 401;
+    
+    /** This only happens when the accessToken is invalid */
     if (isUnauthorized) {
       const appDispatch = dispatch as AppDispatch;
-      appDispatch(refreshSession());
+      appDispatch(logoutSuccess());
     }
 
     next(action);

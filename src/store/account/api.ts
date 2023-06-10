@@ -1,17 +1,15 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
-import { SuccessResponse } from "../rootAPI";
+import { createApi } from "@reduxjs/toolkit/dist/query/react";
+import { SuccessResponse, authorizedQuery } from "../rootAPI";
 
 export const accountAPI = createApi({
   reducerPath: "accountApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_API_BASE_URL + "/v1/accounts",
-  }),
+  baseQuery: authorizedQuery,
   tagTypes: ["Account"],
   endpoints: (build) => ({
     findAccounts: build.mutation<string, void>({
       query: () => {
         return {
-          url: `/`,
+          url: `/v1/accounts`,
           method: "GET",
         };
       },
