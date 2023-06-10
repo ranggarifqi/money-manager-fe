@@ -4,7 +4,7 @@ import { sessionAPI } from "./session/api";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import persistedRootReducer from "./rootReducer";
 import persistStore from "redux-persist/es/persistStore";
-import refreshTokenMiddleware from "./middlewares/refreshToken.middleware";
+import unauthorizedMiddleware from "./middlewares/unauthorized.middleware";
 import { accountAPI } from "./account/api";
 import {
   FLUSH,
@@ -25,7 +25,7 @@ export const store = configureStore({
     }).concat(
       sessionAPI.middleware,
       accountAPI.middleware,
-      refreshTokenMiddleware
+      unauthorizedMiddleware
     );
   },
 });

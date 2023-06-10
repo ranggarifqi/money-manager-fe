@@ -2,7 +2,7 @@ import { Middleware } from "@reduxjs/toolkit";
 import { AppDispatch } from "..";
 import { logoutSuccess } from "../session/slice";
 
-const refreshTokenMiddleware: Middleware =
+const unauthorizedMiddleware: Middleware =
   ({ dispatch }) =>
   (next) =>
   (action) => {
@@ -18,4 +18,4 @@ const refreshTokenMiddleware: Middleware =
     next(action);
   };
 
-export default refreshTokenMiddleware;
+export default unauthorizedMiddleware;
