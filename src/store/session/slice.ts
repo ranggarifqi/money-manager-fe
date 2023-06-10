@@ -3,6 +3,7 @@ import jwtDecode from "jwt-decode";
 import { sessionAPI } from "./api";
 import { ErrorResponse } from "../rootAPI";
 import { stringifyErrorMessage } from "../commons/stringifyErrorMessage";
+import { refreshSession } from "./thunk";
 
 interface IUserCredential {
   userId: string;
@@ -16,12 +17,14 @@ export interface SessionState {
   authToken: string | null;
   credential: IUserCredential | null;
   error: string | null;
+  isRefreshing: boolean;
 }
 
 const initialState: SessionState = {
   authToken: null,
   credential: null,
   error: null,
+  isRefreshing: false,
 };
 
 interface LoginSuccessPayload {
@@ -44,6 +47,23 @@ export const sessionSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(refreshSession.pending, (state) => {
+      state.isRefreshing = true;
+    });
+    builder.addCase(refreshSession.fulfilled, (state, action) => {
+      state.isRefreshing = false;
+
+      state.authToken = action.payload;
+      localStorage.setItem("accessToken", action.payload);
+
+      const decoded = jwtDecode<IUserCredential>(action.payload);
+      state.credential = decoded;
+      state.error = null;
+    });
+    builder.addCase(refreshSession.rejected, (state) => {
+      state.isRefreshing = false;
+    });
+
     builder.addMatcher(sessionAPI.endpoints.login.matchPending, (state) => {
       state.error = null;
     });
@@ -51,6 +71,8 @@ export const sessionSlice = createSlice({
       sessionAPI.endpoints.login.matchFulfilled,
       (state, action) => {
         state.authToken = action.payload;
+
+        localStorage.setItem("accessToken", action.payload);
 
         const decoded = jwtDecode<IUserCredential>(action.payload);
         state.credential = decoded;

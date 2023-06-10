@@ -9,6 +9,7 @@ export interface SuccessResponse<T> {
 const instance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
   timeout: 60000,
+  withCredentials: true
 });
 
 export const getAxiosInstance = () => {

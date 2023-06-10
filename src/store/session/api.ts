@@ -19,6 +19,7 @@ export const sessionAPI = createApi({
           url: `/login`,
           method: "POST",
           body: payload,
+          credentials: "include",
         };
       },
       transformResponse: (response: SuccessResponse<string>) => {

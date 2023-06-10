@@ -4,11 +4,29 @@ import { sessionAPI } from "./session/api";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import persistedRootReducer from "./rootReducer";
 import persistStore from "redux-persist/es/persistStore";
+import refreshTokenMiddleware from "./middlewares/refreshToken.middleware";
+import { accountAPI } from "./account/api";
+import {
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+} from "redux-persist";
 
 export const store = configureStore({
   reducer: persistedRootReducer,
   middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat(sessionAPI.middleware);
+    return getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat(
+      sessionAPI.middleware,
+      accountAPI.middleware,
+      refreshTokenMiddleware
+    );
   },
 });
 
