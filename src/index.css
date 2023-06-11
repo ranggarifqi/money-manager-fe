@@ -38,7 +38,11 @@
     @apply font-medium;
   }
   a {
-    @apply text-blue-600 underline;
+    @apply text-main-600;
+  }
+  a:hover {
+    @apply text-main-300;
+    @apply no-underline;
   }
 
   #root {

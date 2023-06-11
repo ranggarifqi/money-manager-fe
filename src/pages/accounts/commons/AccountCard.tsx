@@ -2,6 +2,7 @@ import { useTheme } from "styled-components";
 import Card from "../../../commons/components/Card";
 import Spacer from "../../../commons/components/Spacer";
 import RecentTransaction from "./RecentTransaction";
+import { Link } from "react-router-dom";
 
 interface Props {
   title: string;
@@ -25,6 +26,8 @@ const AccountCard = ({ title }: Props) => {
           </Card>
           <Spacer height={20} />
           <RecentTransaction />
+          <Spacer height={20}/>
+          <Link to='/accounts/id/transactions' className="text-right block">See All Transactions</Link>
         </div>
       </div>
     </Card>
