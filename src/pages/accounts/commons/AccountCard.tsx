@@ -1,17 +1,14 @@
-import { useTheme } from "styled-components";
 import Card from "../../../commons/components/Card";
 import Spacer from "../../../commons/components/Spacer";
 import RecentTransaction from "./RecentTransaction";
 import { Link } from "react-router-dom";
-import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
+import AccountBalance from "./AccountBalance";
 
 interface Props {
   title: string;
 }
 
 const AccountCard = ({ title }: Props) => {
-  const theme = useTheme();
-
   return (
     <Card className="">
       <div className="flex flex-col items-center">
@@ -21,15 +18,7 @@ const AccountCard = ({ title }: Props) => {
           </div>
         </div>
         <div className="w-full mt-2">
-          <Card bgColor={theme?.colors.main[800]} className="text-white flex">
-            <div className="flex-1">
-              <p>Balance</p>
-              <h3>Rp 1000,00</h3>
-            </div>
-            <div className="flex-none relative top-[-0.3rem]">
-              <EllipsisHorizontalIcon className="w-8 h-8 text-white cursor-pointer" />
-            </div>
-          </Card>
+          <AccountBalance />
           <Spacer height={20} />
           <RecentTransaction />
           <Spacer height={20} />
