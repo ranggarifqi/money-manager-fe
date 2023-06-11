@@ -21,11 +21,11 @@ const Main = () => {
   }
 
   return (
-    <>
+    <div className="h-screen">
       <SideNav />
-      <div id="content" className="h-screen flex flex-col justify-between">
+      <div id="content" className="flex flex-col justify-between h-screen">
         <Header />
-        <div className="h-full p-8 bg-gray-300">
+        <div className="flex-1 p-8 bg-gray-300">
           <div>{breadcrumb.join(" > ")}</div>
           <h1>{title}</h1>
           <Spacer height={20} />
@@ -33,7 +33,7 @@ const Main = () => {
         </div>
         <Footer />
       </div>
-    </>
+    </div>
   );
 };
 
