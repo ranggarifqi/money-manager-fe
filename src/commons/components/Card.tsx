@@ -7,8 +7,12 @@ interface Props {
   bgColor?: string;
 }
 
-const Card = ({ children }: Props) => {
-  return <Container className="rounded-lg p-4">{children}</Container>;
+const Card = ({ children, width, bgColor }: Props) => {
+  return (
+    <Container className="rounded-lg p-4" width={width} bgColor={bgColor}>
+      {children}
+    </Container>
+  );
 };
 
 const Container = styled.div<{ width?: string; bgColor?: string }>`
