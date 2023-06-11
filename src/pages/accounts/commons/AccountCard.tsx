@@ -10,7 +10,7 @@ interface Props {
 
 const AccountCard = ({ title }: Props) => {
   return (
-    <Card className="">
+    <Card>
       <div className="flex flex-col items-center">
         <div className="relative top-[-2rem] w-3/4 h-6">
           <div className="h-12 bg-main rounded-lg flex items-center justify-center px-3">
