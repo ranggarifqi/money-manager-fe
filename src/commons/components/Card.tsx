@@ -7,18 +7,24 @@ interface Props {
   className?: string;
   children?: ReactNode;
   width?: string;
-  bgColor?: string;
+  bgcolor?: string;
   onClick?: AnyCallback;
 }
 
-const Card = ({ children, width, bgColor, className, onClick }: Props) => {
+const Card = ({
+  children,
+  width,
+  bgcolor,
+  className,
+  onClick,
+}: Props) => {
   const concattedClassName = classNames("rounded-lg p-4", className);
 
   return (
     <Container
       className={concattedClassName}
       width={width}
-      bgColor={bgColor}
+      bgcolor={bgcolor}
       onClick={onClick}
     >
       {children}
@@ -26,9 +32,9 @@ const Card = ({ children, width, bgColor, className, onClick }: Props) => {
   );
 };
 
-const Container = styled.div<{ width?: string; bgColor?: string }>`
+const Container = styled.div<{ width?: string; bgcolor?: string }>`
   background-color: ${(props) =>
-    props.bgColor ?? props.theme.colors["light-shades"]};
+    props.bgcolor ?? props.theme.colors["light-shades"]};
   width: ${(props) => props.width ?? "100%"};
 `;
 

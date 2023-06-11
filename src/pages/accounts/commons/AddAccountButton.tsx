@@ -7,7 +7,7 @@ const AddAccountCard = () => {
 
   return (
     <Card
-      bgColor=""
+      bgcolor=""
       className="border-4 border-dark-accent border-dotted text-dark-accent hover:text-light-accent flex flex-col items-center justify-center hover:border-light-accent cursor-pointer"
       onClick={() => navigate('/accounts/new')}
     >

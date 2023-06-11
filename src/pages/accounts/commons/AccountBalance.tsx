@@ -8,7 +8,7 @@ const AccountBalance = () => {
   const theme = useTheme();
 
   return (
-    <Card bgColor={theme?.colors.main[800]} className="text-white flex">
+    <Card bgcolor={theme?.colors.main[800]} className="text-white flex">
       <div className="flex-1">
         <p>Balance</p>
         <h3>Rp 1000,00</h3>

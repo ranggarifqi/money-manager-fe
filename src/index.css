@@ -7,7 +7,7 @@
 
 @font-face {
   font-family: "Nunito";
-  src: url("./fonts/Nunito/Nunito-VariableFont_wght.ttf");
+  src: url("/fonts/Nunito/Nunito-VariableFont_wght.ttf");
 }
 
 @layer base {
