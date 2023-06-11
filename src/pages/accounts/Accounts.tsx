@@ -1,5 +1,6 @@
 import { usePageTitle } from "../../commons/hooks/usePageTitle";
 import AccountCard from "./commons/AccountCard";
+import AddAccountCard from "./commons/AddAccountButton";
 
 const Accounts = () => {
   usePageTitle({
@@ -14,6 +15,7 @@ const Accounts = () => {
       <AccountCard title="Account Name" />
       <AccountCard title="Account Name" />
       <AccountCard title="Account Name" />
+      <AddAccountCard />
     </div>
   );
 };
