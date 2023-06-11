@@ -19,7 +19,6 @@ const SideNav = () => {
       data-te-sidenav-hidden="false"
     >
       <UserInfo />
-      <hr className="border-dark-shades" />
       <Spacer height={10} />
       <SideNavMenu />
     </nav>
