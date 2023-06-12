@@ -20,21 +20,23 @@ type Props = React.DetailedHTMLProps<
 const RippleButton = ({
   children,
   bgColor = "primary",
-  textColor = 'light',
+  textColor = "light",
   block = false,
+  className,
   ...buttonProps
 }: Props) => {
   useEffect(() => {
     initTE({ Button: TWButton, Ripple });
   }, []);
 
-  const className = classNames(
+  const btnClassName = classNames(
     defaultClassNames,
     {
       "w-full": block,
     },
     buttonThemes.bg[bgColor],
-    buttonThemes.textColor[textColor]
+    buttonThemes.textColor[textColor],
+    className
   );
 
   return (
@@ -42,7 +44,7 @@ const RippleButton = ({
       type="button"
       data-te-ripple-init
       data-te-ripple-color="light"
-      className={className}
+      className={btnClassName}
       {...buttonProps}
     >
       {children}
