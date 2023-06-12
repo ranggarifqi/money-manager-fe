@@ -1,4 +1,6 @@
 import { useForm } from "react-hook-form";
+import * as yup from "yup";
+
 import Card from "../../commons/components/Card";
 import Spacer from "../../commons/components/Spacer";
 import TextInput from "../../commons/components/form/TextInput";
@@ -8,6 +10,7 @@ import SelectField, {
 } from "../../commons/components/form/SelectField";
 import { EAccountType } from "../../commons/models/accountType";
 import RippleButton from "../../commons/components/RippleButton";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const options: SelectOption[] = Object.values(EAccountType).map((v) => {
   return {
@@ -15,6 +18,16 @@ const options: SelectOption[] = Object.values(EAccountType).map((v) => {
     value: v,
   };
 });
+
+const formSchema = yup
+  .object({
+    accountType: yup.string<keyof typeof EAccountType>().required(),
+    name: yup.string().required(),
+    balance: yup.number().positive().required(),
+  })
+  .required();
+
+type FormData = yup.InferType<typeof formSchema>;
 
 const NewAccount = () => {
   usePageTitle({
@@ -25,8 +38,10 @@ const NewAccount = () => {
   const {
     register,
     handleSubmit,
-    // formState: { errors },
-  } = useForm();
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: yupResolver(formSchema),
+  });
 
   const onSubmit = handleSubmit((data) => {
     console.log(data);
@@ -40,11 +55,20 @@ const NewAccount = () => {
             label="Account Type"
             options={options}
             {...register("accountType")}
+            errorText={errors.accountType?.message}
           />
           <Spacer height={15} />
-          <TextInput label="Account Name" {...register("name")} />
+          <TextInput
+            label="Account Name"
+            {...register("name")}
+            errorText={errors.name?.message}
+          />
           <Spacer height={15} />
-          <TextInput label="Account Balance" {...register("balance")} />
+          <TextInput
+            label="Account Balance"
+            {...register("balance")}
+            errorText={errors.balance?.message}
+          />
           <Spacer height={25} />
           <div className="flex gap-x-3 w-full justify-end">
             <RippleButton bgColor="info" type="button">
