@@ -14,9 +14,13 @@ interface OwnProps {
   options: SelectOption[];
 }
 
-type Props = OwnProps;
+type Props = OwnProps &
+  React.DetailedHTMLProps<
+    React.SelectHTMLAttributes<HTMLSelectElement>,
+    HTMLSelectElement
+  >;
 
-const SelectField = ({ label, errorText, options }: Props) => {
+const SelectField = ({ label, errorText, options, ...rest }: Props) => {
   useEffect(() => {
     initTE({ Select });
   }, [errorText]);
@@ -42,6 +46,7 @@ const SelectField = ({ label, errorText, options }: Props) => {
         data-te-select-init
         data-te-class-select-input={inputClassNames}
         data-te-input-focused
+        {...rest}
       >
         {options.map((v) => {
           return (
@@ -66,7 +71,8 @@ const defaultInputClassNames = classNames(
   "text-sm",
   "shadow-sm",
   "placeholder-slate-400",
-  "transition ease-in-out duration-300"
+  "transition ease-in-out duration-300",
+  "cursor-pointer"
 );
 
 export default SelectField;
