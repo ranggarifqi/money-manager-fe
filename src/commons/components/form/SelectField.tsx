@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { Select, initTE } from "tw-elements";
 import Spacer from "../Spacer";
 
@@ -20,46 +20,49 @@ type Props = OwnProps &
     HTMLSelectElement
   >;
 
-const SelectField = ({ label, errorText, options, ...rest }: Props) => {
-  useEffect(() => {
-    initTE({ Select });
-  }, [errorText]);
+const SelectField = React.forwardRef<HTMLSelectElement, Props>(
+  ({ label, errorText, options, ...rest }: Props, ref) => {
+    useEffect(() => {
+      initTE({ Select });
+    }, [errorText]);
 
-  const inputClassNames = classNames(defaultInputClassNames, {
-    "ring-1 ring-danger outline-0": !!errorText,
-    "focus:outline-0 focus:border-main focus:ring-1 focus:ring-main":
-      !errorText,
-  });
+    const inputClassNames = classNames(defaultInputClassNames, {
+      "ring-1 ring-danger outline-0": !!errorText,
+      "focus:outline-0 focus:border-main focus:ring-1 focus:ring-main":
+        !errorText,
+    });
 
-  const labelClassName = classNames(
-    "block text-sm font-medium text-dark-shades",
-    {
-      "text-danger": !!errorText,
-    }
-  );
+    const labelClassName = classNames(
+      "block text-sm font-medium text-dark-shades",
+      {
+        "text-danger": !!errorText,
+      }
+    );
 
-  return (
-    <label className="block">
-      <span className={labelClassName}>{label}</span>
-      <Spacer height={4} />
-      <select
-        data-te-select-init
-        data-te-class-select-input={inputClassNames}
-        data-te-input-focused
-        {...rest}
-      >
-        {options.map((v) => {
-          return (
-            <option key={v.value} value={v.value}>
-              {v.label}
-            </option>
-          );
-        })}
-      </select>
-      {errorText && <span className="text-sm text-danger">{errorText}</span>}
-    </label>
-  );
-};
+    return (
+      <label className="block">
+        <span className={labelClassName}>{label}</span>
+        <Spacer height={4} />
+        <select
+          ref={ref}
+          data-te-select-init
+          data-te-class-select-input={inputClassNames}
+          data-te-input-focused
+          {...rest}
+        >
+          {options.map((v) => {
+            return (
+              <option key={v.value} value={v.value}>
+                {v.label}
+              </option>
+            );
+          })}
+        </select>
+        {errorText && <span className="text-sm text-danger">{errorText}</span>}
+      </label>
+    );
+  }
+);
 
 const defaultInputClassNames = classNames(
   "block",

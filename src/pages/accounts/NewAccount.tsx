@@ -39,7 +39,7 @@ const NewAccount = () => {
           <SelectField
             label="Account Type"
             options={options}
-            {...register("name")}
+            {...register("accountType")}
           />
           <Spacer height={15} />
           <TextInput label="Account Name" {...register("name")} />
@@ -50,7 +50,7 @@ const NewAccount = () => {
             <RippleButton bgColor="info" type="button">
               Cancel
             </RippleButton>
-            <RippleButton>Save</RippleButton>
+            <RippleButton type="submit">Save</RippleButton>
           </div>
         </form>
       </Card>
