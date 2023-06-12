@@ -7,6 +7,7 @@ import SelectField, {
   SelectOption,
 } from "../../commons/components/form/SelectField";
 import { EAccountType } from "../../commons/models/accountType";
+import RippleButton from "../../commons/components/RippleButton";
 
 const options: SelectOption[] = Object.values(EAccountType).map((v) => {
   return {
@@ -33,13 +34,24 @@ const NewAccount = () => {
 
   return (
     <div className="flex justify-center">
-      <Card width="50%">
+      <Card className="w-full lg:w-6/12 md:w-8/12">
         <form onSubmit={onSubmit}>
-          <SelectField label="Account Type" options={options} />
+          <SelectField
+            label="Account Type"
+            options={options}
+            {...register("name")}
+          />
           <Spacer height={15} />
           <TextInput label="Account Name" {...register("name")} />
           <Spacer height={15} />
           <TextInput label="Account Balance" {...register("balance")} />
+          <Spacer height={25} />
+          <div className="flex gap-x-3 w-full justify-end">
+            <RippleButton bgColor="info" type="button">
+              Cancel
+            </RippleButton>
+            <RippleButton>Save</RippleButton>
+          </div>
         </form>
       </Card>
     </div>
