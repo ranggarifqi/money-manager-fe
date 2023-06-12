@@ -54,7 +54,11 @@ export default {
       },
     },
   },
-  // eslint-disable-next-line no-undef
-  plugins: [require("tw-elements/dist/plugin.cjs")],
+  plugins: [
+    // eslint-disable-next-line no-undef
+    require("tw-elements/dist/plugin.cjs"),
+    // eslint-disable-next-line no-undef
+    require("@tailwindcss/forms"),
+  ],
   darkMode: "class",
 };
