@@ -11,6 +11,7 @@ import SelectField, {
 import { EAccountType } from "../../commons/models/accountType";
 import RippleButton from "../../commons/components/RippleButton";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate } from "react-router-dom";
 
 const options: SelectOption[] = Object.values(EAccountType).map((v) => {
   return {
@@ -34,6 +35,8 @@ const NewAccount = () => {
     title: "New Accounts",
     breadcrumb: ["Accounts", "New"],
   });
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -71,7 +74,7 @@ const NewAccount = () => {
           />
           <Spacer height={25} />
           <div className="flex gap-x-3 w-full justify-end">
-            <RippleButton bgColor="info" type="button">
+            <RippleButton bgColor="info" type="button" onClick={() => navigate('/accounts')}>
               Cancel
             </RippleButton>
             <RippleButton type="submit">Save</RippleButton>
