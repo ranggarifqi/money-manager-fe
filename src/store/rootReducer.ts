@@ -2,6 +2,7 @@ import { combineReducers } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 
 import sessionReducer from "./session/slice";
+import accountReducer from "./account/slice";
 import { sessionAPI } from "./session/api";
 import { persistReducer } from "redux-persist";
 import { accountAPI } from "./account/api";
@@ -19,6 +20,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   session: sessionReducer,
+  account: accountReducer,
 
   [sessionAPI.reducerPath]: sessionAPI.reducer,
   [accountAPI.reducerPath]: accountAPI.reducer,
