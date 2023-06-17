@@ -1,24 +1,24 @@
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { SuccessResponse, authorizedQuery } from "../rootAPI";
+import { IAccount } from "../../commons/models/accountType";
 
 export const accountAPI = createApi({
   reducerPath: "accountApi",
   baseQuery: authorizedQuery,
   tagTypes: ["Account"],
   endpoints: (build) => ({
-    findAccounts: build.mutation<string, void>({
+    findAccounts: build.query<IAccount, void>({
       query: () => {
         return {
           url: `/v1/accounts`,
           method: "GET",
         };
       },
-      transformResponse: (response: SuccessResponse<string>) => {
+      transformResponse: (response: SuccessResponse<IAccount>) => {
         return response.data;
       },
-      invalidatesTags: ["Account"],
     }),
   }),
 });
 
-export const { useFindAccountsMutation } = accountAPI;
+export const { useFindAccountsQuery } = accountAPI;

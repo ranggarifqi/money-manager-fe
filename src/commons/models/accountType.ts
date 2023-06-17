@@ -8,3 +8,14 @@ export enum EAccountType {
   OTHERS = "Others",
   OVERDRAFTS = "Overdrafts",
 }
+
+export interface IAccount {
+  id: string;
+  accountTypeName: EAccountType;
+  userId: string;
+  name: string;
+  balance: number;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt?: Date | null;
+}

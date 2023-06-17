@@ -24,10 +24,10 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }).concat(
-      unauthorizedMiddleware,
       sessionAPI.middleware,
       accountAPI.middleware,
-      transactionAPI.middleware
+      transactionAPI.middleware,
+      unauthorizedMiddleware
     );
   },
 });
