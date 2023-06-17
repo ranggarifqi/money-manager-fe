@@ -1,13 +1,15 @@
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { SuccessResponse, authorizedQuery } from "../rootAPI";
-import { IAccount } from "../../commons/models/accountType";
+import { normalize } from "normalizr";
+import { IAccount, accountListSchema } from "../../commons/models/account";
+import { CompleteNormalizedEntities } from "../../commons/models";
 
 export const accountAPI = createApi({
   reducerPath: "accountApi",
   baseQuery: authorizedQuery,
   tagTypes: ["Account"],
   endpoints: (build) => ({
-    findAccounts: build.query<IAccount, void>({
+    findAccounts: build.query<CompleteNormalizedEntities, void>({
       query: () => {
         return {
           url: `/v1/accounts`,
@@ -15,7 +17,8 @@ export const accountAPI = createApi({
         };
       },
       transformResponse: (response: SuccessResponse<IAccount>) => {
-        return response.data;
+        const normalized = normalize(response.data, accountListSchema);
+        return normalized.entities;
       },
     }),
   }),
