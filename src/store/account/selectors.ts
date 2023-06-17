@@ -1,4 +1,10 @@
+import { createSelector } from "@reduxjs/toolkit";
+import { RootState } from "..";
 import { accountAdapter } from "./slice";
+
+export const sltAccount = (state: RootState) => {
+  return state.account;
+};
 
 export const {
   selectAll: sltAllAccounts,
@@ -6,4 +12,8 @@ export const {
   selectEntities: sltAccountEntities,
   selectIds: sltAccountIds,
   selectTotal: sltAccountTotal,
-} = accountAdapter.getSelectors();
+} = accountAdapter.getSelectors<RootState>(sltAccount);
+
+export const sltAccountError = createSelector([sltAccount], (account) => {
+  return account.error;
+});
