@@ -11,7 +11,9 @@ import SelectField, {
 import { EAccountType } from "../../commons/models/accountType";
 import RippleButton from "../../commons/components/RippleButton";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { useCreateAccountMutation } from "../../store/account/api";
+import Spinner from "../../commons/components/Spinner";
 
 const options: SelectOption[] = Object.values(EAccountType).map((v) => {
   return {
@@ -24,7 +26,7 @@ const formSchema = yup
   .object({
     accountType: yup.string<keyof typeof EAccountType>().required(),
     name: yup.string().required(),
-    balance: yup.number().positive().required(),
+    balance: yup.number().required(),
   })
   .required();
 
@@ -38,6 +40,11 @@ const NewAccount = () => {
 
   const navigate = useNavigate();
 
+  const [
+    createAccount,
+    { isLoading, isError: isSubmissionError, error, isSuccess },
+  ] = useCreateAccountMutation();
+
   const {
     register,
     handleSubmit,
@@ -47,8 +54,16 @@ const NewAccount = () => {
   });
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
+    createAccount({
+      accountTypeName: data.accountType as EAccountType,
+      balance: data.balance,
+      name: data.name,
+    });
   });
+
+  if (isSuccess) {
+    return <Navigate to="/accounts" />;
+  }
 
   return (
     <div className="flex justify-center">
@@ -73,12 +88,23 @@ const NewAccount = () => {
             errorText={errors.balance?.message}
           />
           <Spacer height={25} />
-          <div className="flex gap-x-3 w-full justify-end">
-            <RippleButton bgColor="info" type="button" onClick={() => navigate('/accounts')}>
-              Cancel
-            </RippleButton>
-            <RippleButton type="submit">Save</RippleButton>
-          </div>
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <div className="flex gap-x-3 w-full justify-end">
+              <RippleButton
+                bgColor="info"
+                type="button"
+                onClick={() => navigate("/accounts")}
+              >
+                Cancel
+              </RippleButton>
+              <RippleButton type="submit">Save</RippleButton>
+            </div>
+          )}
+          {isSubmissionError && (
+            <p className="text-danger text-sm">{error as string}</p>
+          )}
         </form>
       </Card>
     </div>

@@ -8,6 +8,7 @@ import { normalize } from "normalizr";
 import { IAccount, accountListSchema } from "../../commons/models/account";
 import { CompleteNormalizedEntities } from "../../commons/models";
 import { EAccountType } from "../../commons/models/accountType";
+import { stringifyErrorMessage } from "../commons/stringifyErrorMessage";
 
 interface CreateAccountDTO {
   accountTypeName: EAccountType;
@@ -51,8 +52,8 @@ export const accountAPI = createApi({
         return response.data;
       },
 
-      transformErrorResponse(baseQueryReturnValue: RootErrorResponse) {
-        return baseQueryReturnValue.data;
+      transformErrorResponse(baseQueryReturnValue: RootErrorResponse): string {
+        return stringifyErrorMessage(baseQueryReturnValue.data.message);
       },
     }),
   }),
