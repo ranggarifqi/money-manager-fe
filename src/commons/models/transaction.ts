@@ -7,6 +7,7 @@ export interface ITransaction {
   categoryId: string | null;
   fromAccountId: string | null;
   toAccountId: string | null;
+  transactionName: string | null;
   transactionTypeName: ETransactionType;
   date: string;
   amount: number;

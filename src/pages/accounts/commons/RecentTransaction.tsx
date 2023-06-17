@@ -28,6 +28,7 @@ const RecentTransaction = ({ accountId }: Props) => {
           transactionType={d.transactionTypeName}
           amount={d.amount}
           date={d.date}
+          transactionName={d.transactionName}
         />
       );
     });

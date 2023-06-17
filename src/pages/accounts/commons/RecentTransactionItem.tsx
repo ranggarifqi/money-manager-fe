@@ -6,9 +6,15 @@ interface Props {
   transactionType: ETransactionType;
   date: string;
   amount: number;
+  transactionName: string | null;
 }
 
-const RecentTransactionItem = ({ amount, date, transactionType }: Props) => {
+const RecentTransactionItem = ({
+  amount,
+  date,
+  transactionType,
+  transactionName,
+}: Props) => {
   const { formatBalance } = useCurrencyFormatter();
 
   const renderTransactionType = () => {
@@ -32,7 +38,7 @@ const RecentTransactionItem = ({ amount, date, transactionType }: Props) => {
         {renderTransactionType()}
       </div>
       <div className="flex-1">
-        <p className="font-semibold">[Nama]</p>
+        <p className="font-semibold">{transactionName ?? '-'}</p>
         <p className="text-dark-accent">{toHumanReadableDate(date)}</p>
       </div>
       <div className="flex-1 self-center justify-self-end text-right">
