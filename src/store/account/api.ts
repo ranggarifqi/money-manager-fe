@@ -1,5 +1,9 @@
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
-import { SuccessResponse, authorizedQuery } from "../rootAPI";
+import {
+  RootErrorResponse,
+  SuccessResponse,
+  authorizedQuery,
+} from "../rootAPI";
 import { normalize } from "normalizr";
 import { IAccount, accountListSchema } from "../../commons/models/account";
 import { CompleteNormalizedEntities } from "../../commons/models";
@@ -19,6 +23,9 @@ export const accountAPI = createApi({
       transformResponse: (response: SuccessResponse<IAccount>) => {
         const normalized = normalize(response.data, accountListSchema);
         return normalized.entities;
+      },
+      transformErrorResponse(baseQueryReturnValue: RootErrorResponse) {
+        return baseQueryReturnValue.data;
       },
     }),
   }),

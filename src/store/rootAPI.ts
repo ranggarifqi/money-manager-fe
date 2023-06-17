@@ -14,6 +14,11 @@ export interface ErrorResponse {
   error?: string;
 }
 
+export interface RootErrorResponse {
+  data: ErrorResponse;
+  status: number;
+}
+
 const baseAuthorizedQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_API_BASE_URL,
   prepareHeaders: (headers, { getState }) => {
