@@ -20,7 +20,7 @@ const AccountBalance = ({ accountId }: Props) => {
     <Card className="text-white flex bg-main-800">
       <div className="flex-1">
         <p>Balance</p>
-        <BalanceText isNegative={(account?.balance ?? 0) < 0}>
+        <BalanceText $isNegative={(account?.balance ?? 0) < 0}>
           {formatBalance(account?.balance)}
         </BalanceText>
       </div>
@@ -33,9 +33,9 @@ const AccountBalance = ({ accountId }: Props) => {
   );
 };
 
-const BalanceText = styled.h3<{ isNegative?: boolean }>`
+const BalanceText = styled.h3<{ $isNegative?: boolean }>`
   color: ${(props) =>
-    props.isNegative
+    props.$isNegative
       ? props.theme.colors.danger
       : props.theme.colors["light-shades"]};
 `;
