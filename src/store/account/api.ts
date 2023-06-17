@@ -22,6 +22,7 @@ export const accountAPI = createApi({
   tagTypes: ["Account"],
   endpoints: (build) => ({
     findAccounts: build.query<CompleteNormalizedEntities, void>({
+      providesTags: ["Account"],
       query: () => {
         return {
           url: `/v1/accounts`,
@@ -51,10 +52,11 @@ export const accountAPI = createApi({
       transformResponse(response: SuccessResponse<IAccount>) {
         return response.data;
       },
-
       transformErrorResponse(baseQueryReturnValue: RootErrorResponse): string {
         return stringifyErrorMessage(baseQueryReturnValue.data.message);
       },
+
+      invalidatesTags: ["Account"],
     }),
   }),
 });
