@@ -5,6 +5,7 @@ import AccountMenu from "./AccountMenu";
 import { useCurrencyFormatter } from "../../../commons/hooks/useCurrencyFormatter";
 import { useAppSelector } from "../../../commons/hooks/useAppSelector";
 import { sltAccountById } from "../../../store/account/selectors";
+import { styled } from "styled-components";
 
 interface Props {
   accountId: string;
@@ -19,7 +20,9 @@ const AccountBalance = ({ accountId }: Props) => {
     <Card className="text-white flex bg-main-800">
       <div className="flex-1">
         <p>Balance</p>
-        <h3>{formatBalance(account?.balance)}</h3>
+        <BalanceText isNegative={(account?.balance ?? 0) < 0}>
+          {formatBalance(account?.balance)}
+        </BalanceText>
       </div>
       <div className="flex-none relative top-[-0.3rem]">
         <Popover2 content={<AccountMenu />}>
@@ -29,5 +32,12 @@ const AccountBalance = ({ accountId }: Props) => {
     </Card>
   );
 };
+
+const BalanceText = styled.h3<{ isNegative?: boolean }>`
+  color: ${(props) =>
+    props.isNegative
+      ? props.theme.colors.danger
+      : props.theme.colors["light-shades"]};
+`;
 
 export default AccountBalance;
