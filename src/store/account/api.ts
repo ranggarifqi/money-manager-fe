@@ -7,6 +7,13 @@ import {
 import { normalize } from "normalizr";
 import { IAccount, accountListSchema } from "../../commons/models/account";
 import { CompleteNormalizedEntities } from "../../commons/models";
+import { EAccountType } from "../../commons/models/accountType";
+
+interface CreateAccountDTO {
+  accountTypeName: EAccountType;
+  name: string;
+  balance: number;
+}
 
 export const accountAPI = createApi({
   reducerPath: "accountApi",
@@ -18,6 +25,7 @@ export const accountAPI = createApi({
         return {
           url: `/v1/accounts`,
           method: "GET",
+          credentials: "include",
         };
       },
       transformResponse: (response: SuccessResponse<IAccount>) => {
@@ -28,7 +36,26 @@ export const accountAPI = createApi({
         return baseQueryReturnValue.data;
       },
     }),
+
+    createAccount: build.mutation<IAccount, CreateAccountDTO>({
+      query: (payload) => {
+        return {
+          url: `/v1/accounts`,
+          method: "POST",
+          body: payload,
+          credentials: "include",
+        };
+      },
+
+      transformResponse(response: SuccessResponse<IAccount>) {
+        return response.data;
+      },
+
+      transformErrorResponse(baseQueryReturnValue: RootErrorResponse) {
+        return baseQueryReturnValue.data;
+      },
+    }),
   }),
 });
 
-export const { useFindAccountsQuery } = accountAPI;
+export const { useFindAccountsQuery, useCreateAccountMutation } = accountAPI;
