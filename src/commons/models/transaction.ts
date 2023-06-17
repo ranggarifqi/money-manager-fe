@@ -8,11 +8,11 @@ export interface ITransaction {
   fromAccountId: string | null;
   toAccountId: string | null;
   transactionTypeName: ETransactionType;
-  date: Date;
+  date: string;
   amount: number;
   note: string | null;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface ITransactionWithAssociation extends ITransaction {

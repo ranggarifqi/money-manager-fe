@@ -21,8 +21,15 @@ const RecentTransaction = ({ accountId }: Props) => {
     if (!data || data.length === 0) {
       return <p className="text-xs">No Transaction found.</p>;
     }
-    return data?.map(() => {
-      return <RecentTransactionItem />;
+    return data?.map((d) => {
+      return (
+        <RecentTransactionItem
+          key={d.id}
+          transactionType={d.transactionTypeName}
+          amount={d.amount}
+          date={d.date}
+        />
+      );
     });
   };
 
