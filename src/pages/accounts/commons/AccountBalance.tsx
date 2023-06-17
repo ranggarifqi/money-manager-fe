@@ -25,7 +25,7 @@ const AccountBalance = ({ accountId }: Props) => {
         </BalanceText>
       </div>
       <div className="flex-none relative top-[-0.3rem]">
-        <Popover2 content={<AccountMenu />}>
+        <Popover2 content={<AccountMenu accountId={accountId} />}>
           <EllipsisHorizontalIcon className="w-8 h-8 text-white cursor-pointer" />
         </Popover2>
       </div>
