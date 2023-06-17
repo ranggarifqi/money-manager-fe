@@ -1,6 +1,11 @@
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
-import { SuccessResponse, authorizedQuery } from "../rootAPI";
+import {
+  RootErrorResponse,
+  SuccessResponse,
+  authorizedQuery,
+} from "../rootAPI";
 import queryString from "query-string";
+import { ITransactionWithAssociation } from "../../commons/models/transaction";
 
 interface FindByAccountQuery {
   accountId: string;
@@ -12,7 +17,10 @@ export const transactionAPI = createApi({
   baseQuery: authorizedQuery,
   tagTypes: ["Transaction"],
   endpoints: (build) => ({
-    findTransactionByAccount: build.mutation<string, FindByAccountQuery>({
+    findTransactionByAccount: build.query<
+      ITransactionWithAssociation[],
+      FindByAccountQuery
+    >({
       query: (q) => {
         const qString = queryString.stringify(q);
         return {
@@ -20,12 +28,16 @@ export const transactionAPI = createApi({
           method: "GET",
         };
       },
-      transformResponse: (response: SuccessResponse<string>) => {
+      transformResponse: (
+        response: SuccessResponse<ITransactionWithAssociation[]>
+      ) => {
         return response.data;
       },
-      invalidatesTags: ["Transaction"],
+      transformErrorResponse(baseQueryReturnValue: RootErrorResponse) {
+        return baseQueryReturnValue.data;
+      },
     }),
   }),
 });
 
-export const { useFindTransactionByAccountMutation } = transactionAPI;
+export const { useFindTransactionByAccountQuery } = transactionAPI;
