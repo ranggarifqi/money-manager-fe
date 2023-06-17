@@ -6,7 +6,7 @@ import SelectField, {
   SelectOption,
 } from "../../../commons/components/form/SelectField";
 import { EAccountType } from "../../../commons/models/accountType";
-// import { useEffect } from "react";
+import { useEffect } from "react";
 import Spacer from "../../../commons/components/Spacer";
 import TextInput from "../../../commons/components/form/TextInput";
 import Spinner from "../../../commons/components/Spinner";
@@ -35,6 +35,7 @@ interface Props {
   onCancel?: AnyCallback;
   onSubmit?: (data: FormData) => void;
   submissionError?: string;
+  initialValues?: FormData;
 }
 
 const AccountForm = ({
@@ -42,20 +43,25 @@ const AccountForm = ({
   onCancel,
   onSubmit: onSubmitCallback,
   submissionError,
+  initialValues,
 }: Props) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-    // setValue,
+    setValue,
   } = useForm<FormData>({
     resolver: yupResolver(formSchema),
   });
 
-  // TODO: Populate the form
-  // useEffect(() => {
-  //   setValue("balance", 1000);
-  // }, []);
+  useEffect(() => {
+    if (initialValues) {
+      setValue("balance", initialValues.balance);
+      setValue("accountType", initialValues.accountType);
+      setValue("name", initialValues.name);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onSubmit = handleSubmit((data) => {
     if (onSubmitCallback) {
