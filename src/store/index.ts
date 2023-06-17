@@ -14,6 +14,7 @@ import {
   REGISTER,
   REHYDRATE,
 } from "redux-persist";
+import { transactionAPI } from "./transaction/api";
 
 export const store = configureStore({
   reducer: persistedRootReducer,
@@ -23,9 +24,10 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }).concat(
+      unauthorizedMiddleware,
       sessionAPI.middleware,
       accountAPI.middleware,
-      unauthorizedMiddleware
+      transactionAPI.middleware
     );
   },
 });
