@@ -24,7 +24,7 @@ const SideNav = () => {
 
       innerWidth = window.innerWidth;
 
-      if (window.innerWidth < sidenavInstance.getBreakpoint("sm")) {
+      if (window.innerWidth < sidenavInstance.getBreakpoint("lg")) {
         sidenavInstance.changeMode("over");
         sidenavInstance.hide();
       } else {
@@ -50,7 +50,7 @@ const SideNav = () => {
       data-te-sidenav-content="#content"
       data-te-sidenav-hidden={shouldHide}
       data-te-sidenav-mode-breakpoint-over="0"
-      data-te-sidenav-mode-breakpoint-side="sm"
+      data-te-sidenav-mode-breakpoint-side="lg"
     >
       <UserInfo />
       <Spacer height={10} />

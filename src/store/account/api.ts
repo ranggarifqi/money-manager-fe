@@ -1,24 +1,34 @@
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
-import { SuccessResponse, authorizedQuery } from "../rootAPI";
+import {
+  RootErrorResponse,
+  SuccessResponse,
+  authorizedQuery,
+} from "../rootAPI";
+import { normalize } from "normalizr";
+import { IAccount, accountListSchema } from "../../commons/models/account";
+import { CompleteNormalizedEntities } from "../../commons/models";
 
 export const accountAPI = createApi({
   reducerPath: "accountApi",
   baseQuery: authorizedQuery,
   tagTypes: ["Account"],
   endpoints: (build) => ({
-    findAccounts: build.mutation<string, void>({
+    findAccounts: build.query<CompleteNormalizedEntities, void>({
       query: () => {
         return {
           url: `/v1/accounts`,
           method: "GET",
         };
       },
-      transformResponse: (response: SuccessResponse<string>) => {
-        return response.data;
+      transformResponse: (response: SuccessResponse<IAccount>) => {
+        const normalized = normalize(response.data, accountListSchema);
+        return normalized.entities;
       },
-      invalidatesTags: ["Account"],
+      transformErrorResponse(baseQueryReturnValue: RootErrorResponse) {
+        return baseQueryReturnValue.data;
+      },
     }),
   }),
 });
 
-export const { useFindAccountsMutation } = accountAPI;
+export const { useFindAccountsQuery } = accountAPI;
