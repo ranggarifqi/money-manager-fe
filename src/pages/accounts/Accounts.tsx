@@ -27,7 +27,7 @@ const Accounts = () => {
   return (
     <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-x-4 gap-y-12 pt-7">
       {accounts.map((account) => {
-        return <AccountCard key={account.id} title={account.name} />;
+        return <AccountCard key={account.id} accountId={account.id} />;
       })}
       <AddAccountCard />
     </div>
