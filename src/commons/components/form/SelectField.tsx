@@ -12,6 +12,7 @@ interface OwnProps {
   label?: string;
   errorText?: string;
   options: SelectOption[];
+  initialValue?: string;
 }
 
 type Props = OwnProps &
@@ -21,10 +22,18 @@ type Props = OwnProps &
   >;
 
 const SelectField = React.forwardRef<HTMLSelectElement, Props>(
-  ({ label, errorText, options, ...rest }: Props, ref) => {
+  ({ label, errorText, options, initialValue, ...rest }: Props, ref) => {
     useEffect(() => {
       initTE({ Select });
-    }, [errorText]);
+    }, []);
+
+    useEffect(() => {
+      const selectEl = document.getElementById("select-field");
+      if (selectEl) {
+        const select = Select.getInstance(selectEl);
+        select.setValue(initialValue);
+      }
+    }, [initialValue]);
 
     const inputClassNames = classNames(defaultInputClassNames, {
       "ring-1 ring-danger outline-0": !!errorText,
@@ -45,6 +54,7 @@ const SelectField = React.forwardRef<HTMLSelectElement, Props>(
         <Spacer height={4} />
         <select
           ref={ref}
+          id="select-field"
           data-te-select-init
           data-te-class-select-input={inputClassNames}
           data-te-input-focused

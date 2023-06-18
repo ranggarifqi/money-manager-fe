@@ -7,6 +7,19 @@ import {
 import { normalize } from "normalizr";
 import { IAccount, accountListSchema } from "../../commons/models/account";
 import { CompleteNormalizedEntities } from "../../commons/models";
+import { stringifyErrorMessage } from "../commons/stringifyErrorMessage";
+import { transactionAPI } from "../transaction/api";
+
+interface CreateAccountDTO {
+  accountTypeName: string;
+  name: string;
+  balance: number;
+}
+
+interface UpdateAccountDTO {
+  accountId: string;
+  payload: CreateAccountDTO;
+}
 
 export const accountAPI = createApi({
   reducerPath: "accountApi",
@@ -14,13 +27,15 @@ export const accountAPI = createApi({
   tagTypes: ["Account"],
   endpoints: (build) => ({
     findAccounts: build.query<CompleteNormalizedEntities, void>({
+      providesTags: ["Account"],
       query: () => {
         return {
           url: `/v1/accounts`,
           method: "GET",
+          credentials: "include",
         };
       },
-      transformResponse: (response: SuccessResponse<IAccount>) => {
+      transformResponse: (response: SuccessResponse<IAccount[]>) => {
         const normalized = normalize(response.data, accountListSchema);
         return normalized.entities;
       },
@@ -28,7 +43,74 @@ export const accountAPI = createApi({
         return baseQueryReturnValue.data;
       },
     }),
+
+    createAccount: build.mutation<IAccount, CreateAccountDTO>({
+      query: (payload) => {
+        return {
+          url: `/v1/accounts`,
+          method: "POST",
+          body: payload,
+          credentials: "include",
+        };
+      },
+
+      transformResponse(response: SuccessResponse<IAccount>) {
+        return response.data;
+      },
+      transformErrorResponse(baseQueryReturnValue: RootErrorResponse): string {
+        return stringifyErrorMessage(baseQueryReturnValue.data.message);
+      },
+
+      invalidatesTags: ["Account"],
+    }),
+
+    updateAccountById: build.mutation<IAccount, UpdateAccountDTO>({
+      invalidatesTags: ["Account"],
+
+      query(payload) {
+        return {
+          url: `/v1/accounts/${payload.accountId}`,
+          method: "PATCH",
+          body: payload.payload,
+          credentials: "include",
+        };
+      },
+      transformResponse(response: SuccessResponse<IAccount>) {
+        return response.data;
+      },
+      transformErrorResponse(baseQueryReturnValue: RootErrorResponse): string {
+        return stringifyErrorMessage(baseQueryReturnValue.data.message);
+      },
+      async onQueryStarted(_arg, api) {
+        try {
+          await api.queryFulfilled;
+          api.dispatch(transactionAPI.util.invalidateTags(["Transaction"]));
+        } catch (error) {
+          /* empty */
+        }
+      },
+    }),
+
+    deleteAccountById: build.mutation<void, string>({
+      invalidatesTags: ["Account"],
+
+      query(payload) {
+        return {
+          url: `/v1/accounts/${payload}`,
+          method: "DELETE",
+          credentials: "include",
+        };
+      },
+      transformErrorResponse(baseQueryReturnValue: RootErrorResponse): string {
+        return stringifyErrorMessage(baseQueryReturnValue.data.message);
+      },
+    }),
   }),
 });
 
-export const { useFindAccountsQuery } = accountAPI;
+export const {
+  useFindAccountsQuery,
+  useCreateAccountMutation,
+  useUpdateAccountByIdMutation,
+  useDeleteAccountByIdMutation,
+} = accountAPI;

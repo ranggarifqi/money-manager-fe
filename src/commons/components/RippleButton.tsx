@@ -9,6 +9,7 @@ interface OwnProps {
   bgColor?: IBackgroundColor;
   textColor?: ITextColor;
   block?: boolean;
+  isDisabled?: boolean;
 }
 
 type Props = React.DetailedHTMLProps<
@@ -23,6 +24,7 @@ const RippleButton = ({
   textColor = "light",
   block = false,
   className,
+  isDisabled,
   ...buttonProps
 }: Props) => {
   useEffect(() => {
@@ -33,6 +35,7 @@ const RippleButton = ({
     defaultClassNames,
     {
       "w-full": block,
+      "disabled:opacity-30": isDisabled,
     },
     buttonThemes.bg[bgColor],
     buttonThemes.textColor[textColor],
@@ -46,6 +49,7 @@ const RippleButton = ({
       data-te-ripple-color="light"
       className={btnClassName}
       {...buttonProps}
+      disabled={isDisabled}
     >
       {children}
     </button>

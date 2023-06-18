@@ -4,6 +4,7 @@ import Login from "./pages/login/Login";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Accounts from "./pages/accounts/Accounts";
 import NewAccount from "./pages/accounts/NewAccount";
+import EditAccount from "./pages/accounts/EditAccount";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "/accounts/new",
         element: <NewAccount />,
+      },
+      {
+        path: "/accounts/:accountId/edit",
+        element: <EditAccount />,
       },
     ],
   },

@@ -6,13 +6,16 @@ import { persistor, store } from "./store";
 import { PersistGate } from "redux-persist/integration/react";
 import { ThemeProvider } from "styled-components";
 import theme from "./commons/themes/styledComponents";
+import ModalProvider from "./commons/components/modals/ModalProvider";
 
 function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider theme={theme}>
-          <RouterProvider router={router} />
+          <ModalProvider>
+            <RouterProvider router={router} />
+          </ModalProvider>
         </ThemeProvider>
       </PersistGate>
     </Provider>

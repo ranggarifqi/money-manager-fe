@@ -33,6 +33,7 @@ export const slice = createSlice({
     builder.addMatcher(
       accountAPI.endpoints.findAccounts.matchFulfilled,
       (state, action) => {
+        accountAdapter.removeAll(state);
         accountAdapter.upsertMany(state, action.payload.accounts ?? {});
       }
     );

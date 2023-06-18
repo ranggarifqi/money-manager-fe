@@ -21,6 +21,7 @@ export const transactionAPI = createApi({
       ITransactionWithAssociation[],
       FindByAccountQuery
     >({
+      providesTags: ["Transaction"],
       query: (q) => {
         const qString = queryString.stringify(q);
         return {
