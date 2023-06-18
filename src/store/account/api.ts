@@ -7,13 +7,17 @@ import {
 import { normalize } from "normalizr";
 import { IAccount, accountListSchema } from "../../commons/models/account";
 import { CompleteNormalizedEntities } from "../../commons/models";
-import { EAccountType } from "../../commons/models/accountType";
 import { stringifyErrorMessage } from "../commons/stringifyErrorMessage";
 
 interface CreateAccountDTO {
-  accountTypeName: EAccountType;
+  accountTypeName: string;
   name: string;
   balance: number;
+}
+
+interface UpdateAccountDTO {
+  accountId: string;
+  payload: CreateAccountDTO;
 }
 
 export const accountAPI = createApi({
@@ -58,7 +62,30 @@ export const accountAPI = createApi({
 
       invalidatesTags: ["Account"],
     }),
+
+    updateAccountById: build.mutation<IAccount, UpdateAccountDTO>({
+      invalidatesTags: ["Account"],
+
+      query(payload) {
+        return {
+          url: `/v1/accounts/${payload.accountId}`,
+          method: "PATCH",
+          body: payload.payload,
+          credentials: "include",
+        };
+      },
+      transformResponse(response: SuccessResponse<IAccount>) {
+        return response.data;
+      },
+      transformErrorResponse(baseQueryReturnValue: RootErrorResponse): string {
+        return stringifyErrorMessage(baseQueryReturnValue.data.message);
+      },
+    }),
   }),
 });
 
-export const { useFindAccountsQuery, useCreateAccountMutation } = accountAPI;
+export const {
+  useFindAccountsQuery,
+  useCreateAccountMutation,
+  useUpdateAccountByIdMutation,
+} = accountAPI;
