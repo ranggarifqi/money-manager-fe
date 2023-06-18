@@ -12,6 +12,8 @@ import RippleButton from "../../RippleButton";
 import TextInput from "../../form/TextInput";
 import Spacer from "../../Spacer";
 import { useEffect, useState } from "react";
+import { useDeleteAccountByIdMutation } from "../../../../store/account/api";
+import Spinner from "../../Spinner";
 
 export interface AccountDeletionConfirmationProps {
   accountId: string;
@@ -34,11 +36,20 @@ const AccountDeletionConfirmationModal = () => {
 
   const [accountNameConfirm, setAccountNameConfirm] = useState("");
 
+  const [deleteAccountById, { isLoading, error, isError, isSuccess }] =
+    useDeleteAccountByIdMutation();
+
   useEffect(() => {
     if (activeModal === null) {
       setAccountNameConfirm("");
     }
   }, [activeModal]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(closeModal());
+    }
+  }, [dispatch, isSuccess]);
 
   if (!isCorrectProp(props)) {
     return <></>;
@@ -49,6 +60,9 @@ const AccountDeletionConfirmationModal = () => {
       isOpen={activeModal === ModalType.ACCOUNT_DELETION_CONFIRMATION}
       title="Account Deletion Confirmation"
       onClose={() => dispatch(closeModal())}
+      isCloseButtonShown={!isLoading}
+      canOutsideClickClose={!isLoading}
+      canEscapeKeyClose={!isLoading}
     >
       <DialogBody>
         <div>
@@ -62,21 +76,38 @@ const AccountDeletionConfirmationModal = () => {
             placeholder={props.accountName}
             value={accountNameConfirm}
             onChange={(e) => setAccountNameConfirm(e.target.value)}
+            disabled={isLoading}
           />
         </div>
+        {isError && (
+          <div>
+            <Spacer height={10} />
+            <p className="text-danger">{error as string}</p>
+          </div>
+        )}
       </DialogBody>
       <DialogFooter
         actions={
           <div className="flex gap-x-2">
-            <RippleButton bgColor="info" onClick={() => dispatch(closeModal())}>
-              Cancel
-            </RippleButton>
-            <RippleButton
-              bgColor="danger"
-              isDisabled={accountNameConfirm !== props.accountName}
-            >
-              Delete
-            </RippleButton>
+            {isLoading ? (
+              <Spinner />
+            ) : (
+              <>
+                <RippleButton
+                  bgColor="info"
+                  onClick={() => dispatch(closeModal())}
+                >
+                  Cancel
+                </RippleButton>
+                <RippleButton
+                  bgColor="danger"
+                  isDisabled={accountNameConfirm !== props.accountName}
+                  onClick={() => deleteAccountById(props.accountId)}
+                >
+                  Delete
+                </RippleButton>
+              </>
+            )}
           </div>
         }
       ></DialogFooter>
