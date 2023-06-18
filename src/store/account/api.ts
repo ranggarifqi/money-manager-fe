@@ -90,6 +90,21 @@ export const accountAPI = createApi({
         }
       },
     }),
+
+    deleteAccountById: build.mutation<void, string>({
+      invalidatesTags: ["Account"],
+
+      query(payload) {
+        return {
+          url: `/v1/accounts/${payload}`,
+          method: "DELETE",
+          credentials: "include",
+        };
+      },
+      transformErrorResponse(baseQueryReturnValue: RootErrorResponse): string {
+        return stringifyErrorMessage(baseQueryReturnValue.data.message);
+      },
+    }),
   }),
 });
 
@@ -97,4 +112,5 @@ export const {
   useFindAccountsQuery,
   useCreateAccountMutation,
   useUpdateAccountByIdMutation,
+  useDeleteAccountByIdMutation,
 } = accountAPI;
