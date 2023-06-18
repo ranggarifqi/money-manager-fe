@@ -30,7 +30,10 @@ const AccountCard = ({ accountId }: Props) => {
           <Spacer height={20} />
           <RecentTransaction accountId={accountId} />
           <Spacer height={20} />
-          <Link to="/accounts/id/transactions" className="text-right block">
+          <Link
+            to={`/accounts/${accountId}/transactions`}
+            className="text-right block"
+          >
             See All Transactions
           </Link>
         </div>
