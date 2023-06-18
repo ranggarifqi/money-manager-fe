@@ -30,7 +30,7 @@ export const accountAPI = createApi({
           credentials: "include",
         };
       },
-      transformResponse: (response: SuccessResponse<IAccount>) => {
+      transformResponse: (response: SuccessResponse<IAccount[]>) => {
         const normalized = normalize(response.data, accountListSchema);
         return normalized.entities;
       },
