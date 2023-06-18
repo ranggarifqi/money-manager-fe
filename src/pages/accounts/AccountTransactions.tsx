@@ -4,6 +4,7 @@ import { useAppSelector } from "../../commons/hooks/useAppSelector";
 import { sltAccountById } from "../../store/account/selectors";
 import Card from "../../commons/components/Card";
 import Spacer from "../../commons/components/Spacer";
+import AccountTransactionsList from "./commons/AccountTransactionsList";
 
 const AccountTransactions = () => {
   const { accountId } = useParams();
@@ -44,26 +45,12 @@ const AccountTransactions = () => {
       <Spacer height={30} />
       <div className="grid sm:grid-cols-2 grid-cols-1 items-start gap-4">
         <Card className="">
-          <h3>Filter</h3>
+          <h2>Filter</h2>
           <Spacer height={10} />
           <p>asdasd</p>
           <p>asdasd</p>
         </Card>
-        <Card className="">
-          <h3>Transactions</h3>
-          <Spacer height={10} />
-          <p>asdasd</p>
-          <p>asdasd</p>
-          <p>asdasd</p>
-          <p>asdasd</p>
-          <p>asdasd</p>
-          <p>asdasd</p>
-          <p>asdasd</p>
-          <p>asdasd</p>
-          <p>asdasd</p>
-          <p>asdasd</p>
-          <p>asdasd</p>
-        </Card>
+        <AccountTransactionsList />
       </div>
     </div>
   );
