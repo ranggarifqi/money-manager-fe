@@ -8,6 +8,7 @@ import { normalize } from "normalizr";
 import { IAccount, accountListSchema } from "../../commons/models/account";
 import { CompleteNormalizedEntities } from "../../commons/models";
 import { stringifyErrorMessage } from "../commons/stringifyErrorMessage";
+import { transactionAPI } from "../transaction/api";
 
 interface CreateAccountDTO {
   accountTypeName: string;
@@ -79,6 +80,14 @@ export const accountAPI = createApi({
       },
       transformErrorResponse(baseQueryReturnValue: RootErrorResponse): string {
         return stringifyErrorMessage(baseQueryReturnValue.data.message);
+      },
+      async onQueryStarted(_arg, api) {
+        try {
+          await api.queryFulfilled;
+          api.dispatch(transactionAPI.util.invalidateTags(["Transaction"]));
+        } catch (error) {
+          /* empty */
+        }
       },
     }),
   }),
