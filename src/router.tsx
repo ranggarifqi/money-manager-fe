@@ -24,7 +24,7 @@ const router = createBrowserRouter([
         element: <NewAccount />,
       },
       {
-        path: "/accounts/:id/edit",
+        path: "/accounts/:accountId/edit",
         element: <EditAccount />,
       },
     ],
