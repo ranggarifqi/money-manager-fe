@@ -8,7 +8,7 @@ export enum ModalType {
 
 interface ModalMapping {
   type: ModalType;
-  component: () => JSX.Element | undefined;
+  component: () => JSX.Element;
 }
 
 export const modalMapping: ModalMapping[] = [

@@ -27,19 +27,18 @@ const AccountDeletionConfirmationModal = () => {
   const activeModal = useAppSelector(sltActiveModal);
   const props = useAppSelector(
     sltModalProps
-  ) as AccountDeletionConfirmationProps;
-
-  if (!isCorrectProp(props)) {
-    return;
-  }
+  );
 
   return (
     <Dialog
-      isOpen={activeModal === ModalType.ACCOUNT_DELETION_CONFIRMATION}
+      isOpen={
+        isCorrectProp(props) &&
+        activeModal === ModalType.ACCOUNT_DELETION_CONFIRMATION
+      }
       title="Account Deletion Confirmation"
       onClose={() => dispatch(closeModal())}
     >
-      <DialogBody>Hello {props.accountId}</DialogBody>
+      <DialogBody>Hello {props?.accountId}</DialogBody>
     </Dialog>
   );
 };
