@@ -11,7 +11,7 @@ import { closeModal } from "../../../../store/modal/slice";
 import RippleButton from "../../RippleButton";
 import TextInput from "../../form/TextInput";
 import Spacer from "../../Spacer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export interface AccountDeletionConfirmationProps {
   accountId: string;
@@ -33,6 +33,12 @@ const AccountDeletionConfirmationModal = () => {
   const props = useAppSelector(sltModalProps);
 
   const [accountNameConfirm, setAccountNameConfirm] = useState("");
+
+  useEffect(() => {
+    if (activeModal === null) {
+      setAccountNameConfirm("");
+    }
+  }, [activeModal]);
 
   if (!isCorrectProp(props)) {
     return <></>;
