@@ -22,7 +22,7 @@ const options: SelectOption[] = Object.values(EAccountType).map((v) => {
 
 const formSchema = yup
   .object({
-    accountType: yup.string<keyof typeof EAccountType>().required(),
+    accountType: yup.string().required(),
     name: yup.string().required(),
     balance: yup.number().required(),
   })
@@ -50,6 +50,7 @@ const AccountForm = ({
     handleSubmit,
     formState: { errors },
     setValue,
+    getValues,
   } = useForm<FormData>({
     resolver: yupResolver(formSchema),
   });
@@ -60,7 +61,7 @@ const AccountForm = ({
       setValue("accountType", initialValues.accountType);
       setValue("name", initialValues.name);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSubmit = handleSubmit((data) => {
@@ -76,6 +77,7 @@ const AccountForm = ({
         options={options}
         {...register("accountType")}
         errorText={errors.accountType?.message}
+        initialValue={getValues("accountType")}
       />
       <Spacer height={15} />
       <TextInput
