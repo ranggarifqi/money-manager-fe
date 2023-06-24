@@ -10,6 +10,8 @@ import { ITransactionWithAssociation } from "../../commons/models/transaction";
 interface FindByAccountQuery {
   accountId: string;
   limit?: number;
+  start?: string;
+  end?: string;
 }
 
 export const transactionAPI = createApi({
