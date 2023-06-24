@@ -1,7 +1,18 @@
 import { styled } from "styled-components";
 import Card from "../../../../commons/components/Card";
+import { ITransactionWithAssociation } from "../../../../commons/models/transaction";
 
-const AccountTransactionList = () => {
+interface Props {
+  data?: ITransactionWithAssociation[];
+}
+
+const AccountTransactionList = ({ data = [] }: Props) => {
+  const hasNoData = data.length === 0;
+
+  if (hasNoData) {
+    return <div>No Transactions Available</div>
+  }
+
   return (
     <div className="flex flex-col gap-y-2">
       <DayCard bgColor="white">
