@@ -2,9 +2,14 @@ import { useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import { OutletContext } from "../../pages/main/Main";
 
+export interface Breadcrumb {
+  label: string;
+  link?: string;
+}
+
 interface PageTitle {
   title: string;
-  breadcrumb: string[];
+  breadcrumb: Breadcrumb[];
 }
 
 export const usePageTitle = ({ breadcrumb, title }: PageTitle) => {

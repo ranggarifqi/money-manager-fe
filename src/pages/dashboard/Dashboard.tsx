@@ -3,7 +3,7 @@ import { usePageTitle } from "../../commons/hooks/usePageTitle";
 const Dashboard = () => {
   usePageTitle({
     title: "Dashboard",
-    breadcrumb: ["Dashboard"],
+    breadcrumb: [{ label: "Dashboard" }],
   });
 
   return (

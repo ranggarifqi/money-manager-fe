@@ -9,7 +9,11 @@ import AddAccountCard from "./commons/AddAccountButton";
 const Accounts = () => {
   usePageTitle({
     title: "Accounts",
-    breadcrumb: ["Accounts"],
+    breadcrumb: [
+      {
+        label: "Accounts",
+      },
+    ],
   });
 
   const { isLoading } = useFindAccountsQuery();

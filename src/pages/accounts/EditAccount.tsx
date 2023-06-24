@@ -11,7 +11,7 @@ import { useUpdateAccountByIdMutation } from "../../store/account/api";
 const EditAccount = () => {
   usePageTitle({
     title: "Edit Accounts",
-    breadcrumb: ["Accounts", "Edit"],
+    breadcrumb: [{ label: "Accounts", link: "/accounts" }, { label: "Edit" }],
   });
 
   const navigate = useNavigate();
