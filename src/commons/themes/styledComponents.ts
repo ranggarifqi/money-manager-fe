@@ -25,6 +25,10 @@ const theme: DefaultTheme = {
     success: "#3db25d",
     warning: "#bba225",
     danger: "#f44336",
+    gray: {
+      100: "rgb(243 244 246)",
+      300: "rgb(209 213 219)",
+    },
   },
 };
 

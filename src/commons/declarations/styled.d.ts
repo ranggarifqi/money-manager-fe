@@ -28,6 +28,10 @@ declare module "styled-components" {
       success: string;
       warning: string;
       danger: string;
+      gray: {
+        100: string;
+        300: string;
+      }
     };
   }
 }
