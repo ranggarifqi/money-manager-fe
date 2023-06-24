@@ -8,14 +8,23 @@ export interface FilterFormData {
   month: Date;
 }
 
-const AccountTransactionFilterCard = () => {
+interface Props {
+  onFilterChanged?: (value: FilterFormData) => void;
+  initialValues?: FilterFormData;
+}
+
+const AccountTransactionFilterCard = ({
+  onFilterChanged,
+  initialValues,
+}: Props) => {
   const { control, handleSubmit } = useForm<FilterFormData>({
     defaultValues: {
-      month: new Date(),
+      month: initialValues?.month ?? new Date(),
     },
   });
 
-  const onSubmit: SubmitHandler<FilterFormData> = (data) => console.log(data);
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  const onSubmit: SubmitHandler<FilterFormData> = onFilterChanged ?? (() => {});
 
   return (
     <Card className="md:sticky md:top-[6rem]">

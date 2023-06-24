@@ -1,4 +1,5 @@
 import { IAccount } from "./account";
+import { ICategory } from "./category";
 import { ETransactionType } from "./transactionType";
 
 export interface ITransaction {
@@ -19,5 +20,5 @@ export interface ITransaction {
 export interface ITransactionWithAssociation extends ITransaction {
   FromAccount?: IAccount | null;
   ToAccount?: IAccount | null;
-  // Category?: ICategory | null;
+  Category?: ICategory | null;
 }
