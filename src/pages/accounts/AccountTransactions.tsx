@@ -5,6 +5,7 @@ import { sltAccountById } from "../../store/account/selectors";
 import Card from "../../commons/components/Card";
 import Spacer from "../../commons/components/Spacer";
 import AccountTransactionsCard from "./commons/TransactionList/AccountTransactionsCard";
+import AccountTransactionFilterCard from "./commons/TransactionList/AccountTransactionFilterCard";
 
 const AccountTransactions = () => {
   const { accountId } = useParams();
@@ -44,12 +45,7 @@ const AccountTransactions = () => {
       </div>
       <Spacer height={30} />
       <div className="grid sm:grid-cols-2 grid-cols-1 items-start gap-4">
-        <Card className="">
-          <h2>Filter</h2>
-          <Spacer height={10} />
-          <p>asdasd</p>
-          <p>asdasd</p>
-        </Card>
+        <AccountTransactionFilterCard />
         <AccountTransactionsCard />
       </div>
     </div>
