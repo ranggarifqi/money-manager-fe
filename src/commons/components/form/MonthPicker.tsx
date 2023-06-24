@@ -1,25 +1,35 @@
-import { forwardRef, useState } from "react";
-import ReactDatePicker from "react-datepicker";
+import { forwardRef } from "react";
+import ReactDatePicker, { ReactDatePickerProps } from "react-datepicker";
 import TextInput from "./TextInput";
 
-export const MonthPicker = () => {
-  const [startDate, setStartDate] = useState<Date>(new Date());
+interface OwnProps {
+  label?: string;
+}
+type Props = OwnProps & ReactDatePickerProps;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const CustomInput = forwardRef<any, any>(({ value, onClick }, ref) => (
-    <TextInput label="Select Month" onClick={onClick} ref={ref} value={value} />
-  ));
-
+export const MonthPicker = ({ label, ...datePickerProps }: Props) => {
   return (
     <ReactDatePicker
-      selected={startDate}
-      onChange={(date) => !!date && setStartDate(date)}
+      {...datePickerProps}
       dateFormat="MMM yyyy"
       showMonthYearPicker
-      customInput={<CustomInput />}
+      customInput={<CustomInput label={label} />}
       wrapperClassName="w-full"
     />
   );
 };
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const CustomInput = forwardRef<any, any>(
+  ({ value, onClick, onChange, label }, ref) => (
+    <TextInput
+      label={label}
+      onClick={onClick}
+      ref={ref}
+      value={value}
+      onChange={onChange}
+    />
+  )
+);
 
 export default MonthPicker;
