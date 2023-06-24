@@ -26,7 +26,11 @@ const AccountTransactions = () => {
 
   usePageTitle({
     title: `Account Transactions - ${account?.name}`,
-    breadcrumb: ["Accounts", account?.name ?? "", "Transactions"],
+    breadcrumb: [
+      { label: "Accounts", link: "/accounts" },
+      { label: account?.name ?? "" },
+      { label: "Transactions" },
+    ],
   });
 
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());

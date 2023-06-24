@@ -8,7 +8,7 @@ import AccountForm from "./commons/AccountForm";
 const NewAccount = () => {
   usePageTitle({
     title: "New Accounts",
-    breadcrumb: ["Accounts", "New"],
+    breadcrumb: [{ label: "Accounts", link: '/accounts' }, { label: "New" }],
   });
 
   const navigate = useNavigate();
