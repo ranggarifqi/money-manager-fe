@@ -27,7 +27,7 @@ const AccountTransactions = () => {
   usePageTitle({
     title: `Account Transactions - ${account?.name}`,
     breadcrumb: [
-      { label: "Accounts" },
+      { label: "Accounts", link: "/accounts" },
       { label: account?.name ?? "" },
       { label: "Transactions" },
     ],
