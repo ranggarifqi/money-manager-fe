@@ -7,18 +7,24 @@ import { PersistGate } from "redux-persist/integration/react";
 import { ThemeProvider } from "styled-components";
 import theme from "./commons/themes/styledComponents";
 import ModalProvider from "./commons/components/modals/ModalProvider";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 function App() {
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <ThemeProvider theme={theme}>
-          <ModalProvider>
-            <RouterProvider router={router} />
-          </ModalProvider>
-        </ThemeProvider>
-      </PersistGate>
-    </Provider>
+    <HelmetProvider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <ThemeProvider theme={theme}>
+            <ModalProvider>
+              <Helmet>
+                <title>Money Manager</title>
+              </Helmet>
+              <RouterProvider router={router} />
+            </ModalProvider>
+          </ThemeProvider>
+        </PersistGate>
+      </Provider>
+    </HelmetProvider>
   );
 }
 
