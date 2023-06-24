@@ -4,7 +4,7 @@ import { useAppSelector } from "../../commons/hooks/useAppSelector";
 import { sltAccountById } from "../../store/account/selectors";
 import Card from "../../commons/components/Card";
 import Spacer from "../../commons/components/Spacer";
-import AccountTransactionsList from "./commons/AccountTransactionsList";
+import AccountTransactionsCard from "./commons/TransactionList/AccountTransactionsCard";
 
 const AccountTransactions = () => {
   const { accountId } = useParams();
@@ -50,7 +50,7 @@ const AccountTransactions = () => {
           <p>asdasd</p>
           <p>asdasd</p>
         </Card>
-        <AccountTransactionsList />
+        <AccountTransactionsCard />
       </div>
     </div>
   );
