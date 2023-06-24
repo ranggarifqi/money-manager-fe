@@ -19,8 +19,6 @@ const AccountTransactionList = ({ data = [] }: Props) => {
     return dateOnly;
   });
 
-  console.log("transactionsGroupedByDate", transactionsGroupedByDate);
-
   const dateList = Object.keys(transactionsGroupedByDate);
 
   return (
