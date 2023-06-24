@@ -5,19 +5,20 @@ import AccountMenu from "./AccountMenu";
 import { useCurrencyFormatter } from "../../../commons/hooks/useCurrencyFormatter";
 import { useAppSelector } from "../../../commons/hooks/useAppSelector";
 import { sltAccountById } from "../../../store/account/selectors";
-import { styled } from "styled-components";
+import { styled, useTheme } from "styled-components";
 
 interface Props {
   accountId: string;
 }
 
 const AccountBalance = ({ accountId }: Props) => {
+  const theme = useTheme();
   const account = useAppSelector((state) => sltAccountById(state, accountId));
 
   const { formatBalance } = useCurrencyFormatter();
 
   return (
-    <Card className="text-white flex bg-main-800">
+    <Card className="text-white flex" bgColor={theme?.colors.main[800]}>
       <div className="flex-1">
         <p>Balance</p>
         <BalanceText $isNegative={(account?.balance ?? 0) < 0}>
