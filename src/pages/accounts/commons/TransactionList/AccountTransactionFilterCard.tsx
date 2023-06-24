@@ -18,7 +18,7 @@ const AccountTransactionFilterCard = () => {
   const onSubmit: SubmitHandler<FilterFormData> = (data) => console.log(data);
 
   return (
-    <Card className="">
+    <Card className="md:sticky md:top-[6rem]">
       <h2>Filter</h2>
       <Spacer height={10} />
       <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>

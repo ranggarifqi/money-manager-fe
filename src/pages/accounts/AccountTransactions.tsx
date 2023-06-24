@@ -44,7 +44,7 @@ const AccountTransactions = () => {
         </Card>
       </div>
       <Spacer height={30} />
-      <div className="grid sm:grid-cols-2 grid-cols-1 items-start gap-4">
+      <div className="grid md:grid-cols-2 grid-cols-1 items-start gap-4">
         <AccountTransactionFilterCard />
         <AccountTransactionsCard />
       </div>
