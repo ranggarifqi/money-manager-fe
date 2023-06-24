@@ -54,7 +54,7 @@ const AccountTransactionListByDate = ({
       <div className="flex flex-col divide-y">
         {transactions.map((transaction) => {
           return (
-            <div className="px-4 py-2 flex w-full gap-x-4">
+            <div className="px-4 py-2 flex w-full gap-x-4" key={transaction.id}>
               <div className="flex-0 w-[6rem]">
                 <p className="truncate">
                   {transaction.Category
@@ -66,6 +66,10 @@ const AccountTransactionListByDate = ({
               </div>
               <div className="flex-0">
                 <p className="truncate">{transaction.transactionName}</p>
+                <AccountName
+                  fromAccount={transaction.FromAccount?.name}
+                  toAccount={transaction.ToAccount?.name}
+                />
               </div>
               <div
                 className={classNames("flex-1 text-right", {
@@ -84,6 +88,26 @@ const AccountTransactionListByDate = ({
       </div>
     </DayCard>
   );
+};
+
+interface AccountNameProps {
+  fromAccount?: string;
+  toAccount?: string;
+}
+const AccountName = (props: AccountNameProps) => {
+  if (props.fromAccount && props.toAccount) {
+    return (
+      <p className="text-xs truncate">
+        {props.fromAccount} {"->"} {props.toAccount}
+      </p>
+    );
+  }
+
+  if (props.fromAccount) {
+    return <p className="text-xs truncate">{props.fromAccount}</p>;
+  }
+
+  return <p className="text-xs truncate">{props.toAccount}</p>;
 };
 
 const DayCard = styled(Card)`
