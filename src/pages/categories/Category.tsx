@@ -9,12 +9,12 @@ import { usePageTitle } from "../../commons/hooks/usePageTitle";
 import { useEffect, useState } from "react";
 import Card from "../../commons/components/Card";
 import { ICategoryWithRelations } from "../../commons/models/category";
-import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 import Table from "../../commons/components/table/Table";
 import RippleButton from "../../commons/components/buttons/RippleButton";
 import Spacer from "../../commons/components/Spacer";
 import { useNavigate } from "react-router-dom";
 import ExpandRowIcon from "./commons/ExpandRowIcon";
+import ActionButtons from "./commons/ActionButtons";
 
 const defaultTableData: ICategoryWithRelations[] = [
   {
@@ -68,23 +68,6 @@ const columns = [
     size: 10,
   }),
 ];
-
-interface ActionButtonsProps {
-  id: string;
-}
-const ActionButtons = ({ id }: ActionButtonsProps) => {
-  const navigate = useNavigate();
-
-  return (
-    <div className="flex items-center gap-x-2">
-      <PencilSquareIcon
-        onClick={() => navigate(`/categories/${id}/edit`)}
-        className="w-7 h-7 cursor-pointer transition-colors hover:text-main duration-300"
-      />
-      <TrashIcon className="w-7 h-7 cursor-pointer transition-colors hover:text-danger duration-300" />
-    </div>
-  );
-};
 
 const Category = () => {
   usePageTitle({
