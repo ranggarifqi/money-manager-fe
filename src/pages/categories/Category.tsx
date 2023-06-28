@@ -3,8 +3,10 @@ import {
   createColumnHelper,
   getExpandedRowModel,
 } from "@tanstack/react-table";
+import { Tab, initTE } from "tw-elements";
+
 import { usePageTitle } from "../../commons/hooks/usePageTitle";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "../../commons/components/Card";
 import { ICategoryWithRelations } from "../../commons/models/category";
 import {
@@ -109,17 +111,97 @@ const Category = () => {
   const [tableData] = useState<ICategoryWithRelations[]>(defaultTableData);
   const [expanded, setExpanded] = useState<ExpandedState>({});
 
+  useEffect(() => {
+    initTE({ Tab });
+  }, []);
+
   return (
     <div>
-      <Card>
-        <Table
-          data={tableData}
-          columns={columns}
-          state={{ expanded }}
-          onExpandedChange={setExpanded}
-          getSubRows={(row) => row.Children}
-          getExpandedRowModel={getExpandedRowModel()}
-        />
+      <Card className="flex flex-col md:flex-row md:items-start">
+        <ul
+          className="mr-4 flex list-none flex-row md:flex-col flex-wrap pl-0"
+          role="tablist"
+          data-te-nav-ref
+        >
+          <li role="presentation" className="flex-grow text-center">
+            <a
+              href="#tabs-incomes"
+              className="my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent data-[te-nav-active]:border-primary data-[te-nav-active]:text-primary dark:text-neutral-400 dark:hover:bg-transparent dark:data-[te-nav-active]:border-primary-400 dark:data-[te-nav-active]:text-primary-400"
+              data-te-toggle="pill"
+              data-te-target="#tabs-incomes"
+              data-te-nav-active
+              role="tab"
+              aria-controls="tabs-incomes"
+              aria-selected="true"
+            >
+              Incomes
+            </a>
+          </li>
+          <li role="presentation" className="flex-grow text-center">
+            <a
+              href="#tabs-expenses"
+              className="focus:border-transparen my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate data-[te-nav-active]:border-primary data-[te-nav-active]:text-primary dark:text-neutral-400 dark:hover:bg-transparent dark:data-[te-nav-active]:border-primary-400 dark:data-[te-nav-active]:text-primary-400"
+              data-te-toggle="pill"
+              data-te-target="#tabs-expenses"
+              role="tab"
+              aria-controls="tabs-expenses"
+              aria-selected="false"
+            >
+              Expenses
+            </a>
+          </li>
+        </ul>
+        <div className="flex-1">
+          <div
+            className="hidden opacity-100 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
+            id="tabs-incomes"
+            role="tabpanel"
+            aria-labelledby="tabs-home-tab03"
+            data-te-tab-active
+          >
+            <Table
+              data={tableData}
+              columns={columns}
+              state={{ expanded }}
+              onExpandedChange={setExpanded}
+              getSubRows={(row) => row.Children}
+              getExpandedRowModel={getExpandedRowModel()}
+            />
+          </div>
+          <div
+            className="hidden opacity-0 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
+            id="tabs-expenses"
+            role="tabpanel"
+            aria-labelledby="tabs-profile-tab03"
+          >
+            <p>Expenses Table</p>
+          </div>
+          {/* <div
+            id="tabs-incomes"
+            role="tabpanel"
+            aria-labelledby="tabs-incomes"
+            data-te-tab-active
+            className="hidden"
+          >
+            <Table
+              data={tableData}
+              columns={columns}
+              state={{ expanded }}
+              onExpandedChange={setExpanded}
+              getSubRows={(row) => row.Children}
+              getExpandedRowModel={getExpandedRowModel()}
+            />
+          </div>
+          <div
+            id="tabs-expenses"
+            role="tabpanel"
+            aria-labelledby="tabs-expenses"
+            data-te-tab-active
+            className="hidden"
+          >
+            <p>Expenses Table</p>
+          </div> */}
+        </div>
       </Card>
     </div>
   );
