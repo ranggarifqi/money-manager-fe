@@ -19,6 +19,7 @@ const persistConfig = {
     sessionAPI.reducerPath,
     accountAPI.reducerPath,
     transactionAPI.reducerPath,
+    categoryAPI.reducerPath,
   ],
 };
 
