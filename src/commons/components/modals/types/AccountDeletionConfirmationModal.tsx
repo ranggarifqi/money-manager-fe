@@ -8,7 +8,7 @@ import {
 } from "../../../../store/modal/selectors";
 import { ModalType } from "../interfaces";
 import { closeModal } from "../../../../store/modal/slice";
-import RippleButton from "../../RippleButton";
+import RippleButton from "../../buttons/RippleButton";
 import TextInput from "../../form/TextInput";
 import Spacer from "../../Spacer";
 import { useEffect, useState } from "react";

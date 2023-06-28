@@ -13,9 +13,11 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
   PencilSquareIcon,
+  PlusIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import Table from "../../commons/components/table/Table";
+import RippleButton from "../../commons/components/buttons/RippleButton";
 
 const defaultTableData: ICategoryWithRelations[] = [
   {
@@ -178,6 +180,9 @@ const Category = () => {
           </div>
         </div>
       </Card>
+      {/* <RippleButton circular>
+        <PlusIcon className="w-5 h-5" />
+      </RippleButton> */}
     </div>
   );
 };

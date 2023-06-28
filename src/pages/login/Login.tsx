@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
 import Spacer from "../../commons/components/Spacer";
-import RippleButton from "../../commons/components/RippleButton";
+import RippleButton from "../../commons/components/buttons/RippleButton";
 
 import loginSVG from "/login.svg";
 import TextInput from "../../commons/components/form/TextInput";

@@ -4,7 +4,7 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import AccountForm from "./commons/AccountForm";
 import { useAppSelector } from "../../commons/hooks/useAppSelector";
 import { sltAccountById } from "../../store/account/selectors";
-import RippleButton from "../../commons/components/RippleButton";
+import RippleButton from "../../commons/components/buttons/RippleButton";
 import Spacer from "../../commons/components/Spacer";
 import { useUpdateAccountByIdMutation } from "../../store/account/api";
 

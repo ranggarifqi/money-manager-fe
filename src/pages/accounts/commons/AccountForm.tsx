@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import Spacer from "../../../commons/components/Spacer";
 import TextInput from "../../../commons/components/form/TextInput";
 import Spinner from "../../../commons/components/Spinner";
-import RippleButton from "../../../commons/components/RippleButton";
+import RippleButton from "../../../commons/components/buttons/RippleButton";
 import { AnyCallback } from "../../../commons/types/general";
 
 const options: SelectOption[] = Object.values(EAccountType).map((v) => {
