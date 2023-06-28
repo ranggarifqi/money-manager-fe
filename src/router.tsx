@@ -6,6 +6,7 @@ import Accounts from "./pages/accounts/Accounts";
 import NewAccount from "./pages/accounts/NewAccount";
 import EditAccount from "./pages/accounts/EditAccount";
 import AccountTransactions from "./pages/accounts/AccountTransactions";
+import Category from "./pages/categories/Category";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "/accounts/:accountId/transactions",
         element: <AccountTransactions />,
+      },
+      {
+        path: "/categories",
+        element: <Category />,
       },
     ],
   },
