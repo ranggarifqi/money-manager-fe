@@ -1,4 +1,5 @@
 import {
+  ExpandedState,
   createColumnHelper,
   flexRender,
   getCoreRowModel,
@@ -10,6 +11,7 @@ import { useState } from "react";
 import Card from "../../commons/components/Card";
 import { ICategoryWithRelations } from "../../commons/models/category";
 import {
+  ChevronDownIcon,
   ChevronRightIcon,
   PencilSquareIcon,
   TrashIcon,
@@ -42,19 +44,21 @@ const defaultTableData: ICategoryWithRelations[] = [
 const columnHelper = createColumnHelper<ICategoryWithRelations>();
 
 const columns = [
-  columnHelper.display({
-    header: "Expland",
-    cell: ({ row }) => {
-      if (row.getCanExpand()) {
-        return <ChevronRightIcon className="w-5 h-5 cursor-pointer" />;
-      }
-      return null;
-    },
-    size: 10,
-  }),
   columnHelper.accessor("name", {
     header: "Name",
-    cell: (info) => info.getValue(),
+    cell: (info) => (
+      <div
+        className="flex items-center gap-x-2"
+        style={{ paddingLeft: info.row.depth * 2 + "rem" }}
+      >
+        <ExpandIcon
+          canExpand={info.row.getCanExpand()}
+          isExpanded={info.row.getIsExpanded()}
+          onExpand={info.row.getToggleExpandedHandler()}
+        />
+        {info.getValue()}
+      </div>
+    ),
     footer: (info) => info.column.id,
     size: 80,
   }),
@@ -72,6 +76,28 @@ const columns = [
   }),
 ];
 
+interface ExpandIconProps {
+  canExpand: boolean;
+  isExpanded: boolean;
+  onExpand: () => void;
+}
+const ExpandIcon = ({ canExpand, isExpanded, onExpand }: ExpandIconProps) => {
+  if (canExpand) {
+    if (isExpanded) {
+      return (
+        <ChevronDownIcon
+          className="w-5 h-5 cursor-pointer"
+          onClick={onExpand}
+        />
+      );
+    }
+    return (
+      <ChevronRightIcon className="w-5 h-5 cursor-pointer" onClick={onExpand} />
+    );
+  }
+  return null;
+};
+
 // TODO: Tabview to change between Income categories & expense categories
 const Category = () => {
   usePageTitle({
@@ -84,10 +110,15 @@ const Category = () => {
   });
 
   const [tableData] = useState<ICategoryWithRelations[]>(defaultTableData);
+  const [expanded, setExpanded] = useState<ExpandedState>({});
 
   const table = useReactTable({
     data: tableData,
     columns,
+    state: {
+      expanded,
+    },
+    onExpandedChange: setExpanded,
     getCoreRowModel: getCoreRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
     getSubRows: (row) => row.Children,
