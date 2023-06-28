@@ -110,6 +110,7 @@ const Category = () => {
   );
 };
 
+// TODO: Remove this later
 const defaultTableData: ICategoryWithRelations[] = [
   {
     id: "asd",
