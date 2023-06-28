@@ -117,7 +117,7 @@ const Category = () => {
 
   return (
     <div>
-      <Card className="flex flex-col md:flex-row md:items-start">
+      <Card className="flex flex-col md:flex-row md:items-start md:divide-x-2">
         <ul
           className="mr-4 flex list-none flex-row md:flex-col flex-wrap pl-0"
           role="tablist"
@@ -176,31 +176,6 @@ const Category = () => {
           >
             <p>Expenses Table</p>
           </div>
-          {/* <div
-            id="tabs-incomes"
-            role="tabpanel"
-            aria-labelledby="tabs-incomes"
-            data-te-tab-active
-            className="hidden"
-          >
-            <Table
-              data={tableData}
-              columns={columns}
-              state={{ expanded }}
-              onExpandedChange={setExpanded}
-              getSubRows={(row) => row.Children}
-              getExpandedRowModel={getExpandedRowModel()}
-            />
-          </div>
-          <div
-            id="tabs-expenses"
-            role="tabpanel"
-            aria-labelledby="tabs-expenses"
-            data-te-tab-active
-            className="hidden"
-          >
-            <p>Expenses Table</p>
-          </div> */}
         </div>
       </Card>
     </div>
