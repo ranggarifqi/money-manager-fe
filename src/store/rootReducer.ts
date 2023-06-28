@@ -8,6 +8,7 @@ import { sessionAPI } from "./session/api";
 import { persistReducer } from "redux-persist";
 import { accountAPI } from "./account/api";
 import { transactionAPI } from "./transaction/api";
+import { categoryAPI } from "./category/api";
 
 const persistConfig = {
   key: "root",
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   [sessionAPI.reducerPath]: sessionAPI.reducer,
   [accountAPI.reducerPath]: accountAPI.reducer,
   [transactionAPI.reducerPath]: transactionAPI.reducer,
+  [categoryAPI.reducerPath]: categoryAPI.reducer,
 });
 
 const persistedRootReducer = persistReducer(persistConfig, rootReducer);

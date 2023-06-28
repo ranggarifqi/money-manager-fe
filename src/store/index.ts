@@ -15,6 +15,7 @@ import {
   REHYDRATE,
 } from "redux-persist";
 import { transactionAPI } from "./transaction/api";
+import { categoryAPI } from "./category/api";
 
 export const store = configureStore({
   reducer: persistedRootReducer,
@@ -27,6 +28,7 @@ export const store = configureStore({
       sessionAPI.middleware,
       accountAPI.middleware,
       transactionAPI.middleware,
+      categoryAPI.middleware,
       unauthorizedMiddleware
     );
   },

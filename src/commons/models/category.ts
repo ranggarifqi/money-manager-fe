@@ -1,3 +1,5 @@
+import { schema } from "normalizr";
+
 export interface ICategory {
   id: string;
   parentId: string | null;
@@ -14,3 +16,7 @@ export interface ICategoryWithRelations extends ICategory {
   Children?: ICategory[];
   // User?: IUser;
 }
+
+export const categorySchemaKey = "category";
+export const categorySchema = new schema.Entity(categorySchemaKey);
+export const categoryListSchema = [categorySchema];
