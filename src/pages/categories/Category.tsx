@@ -13,11 +13,12 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
   PencilSquareIcon,
-  PlusIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import Table from "../../commons/components/table/Table";
 import RippleButton from "../../commons/components/buttons/RippleButton";
+import Spacer from "../../commons/components/Spacer";
+import { useNavigate } from "react-router-dom";
 
 const defaultTableData: ICategoryWithRelations[] = [
   {
@@ -65,13 +66,8 @@ const columns = [
   }),
   columnHelper.display({
     header: "Actions",
-    cell: () => {
-      return (
-        <div className="flex items-center gap-x-2">
-          <PencilSquareIcon className="w-7 h-7 cursor-pointer transition-colors hover:text-main duration-300" />
-          <TrashIcon className="w-7 h-7 cursor-pointer transition-colors hover:text-danger duration-300" />
-        </div>
-      );
+    cell: ({ row }) => {
+      return <ActionButtons id={row.original.id} />;
     },
     size: 10,
   }),
@@ -99,7 +95,23 @@ const ExpandIcon = ({ canExpand, isExpanded, onExpand }: ExpandIconProps) => {
   return null;
 };
 
-// TODO: Tabview to change between Income categories & expense categories
+interface ActionButtonsProps {
+  id: string;
+}
+const ActionButtons = ({ id }: ActionButtonsProps) => {
+  const navigate = useNavigate();
+
+  return (
+    <div className="flex items-center gap-x-2">
+      <PencilSquareIcon
+        onClick={() => navigate(`/categories/${id}/edit`)}
+        className="w-7 h-7 cursor-pointer transition-colors hover:text-main duration-300"
+      />
+      <TrashIcon className="w-7 h-7 cursor-pointer transition-colors hover:text-danger duration-300" />
+    </div>
+  );
+};
+
 const Category = () => {
   usePageTitle({
     title: "Categories",
@@ -110,6 +122,8 @@ const Category = () => {
     ],
   });
 
+  const navigate = useNavigate();
+
   const [tableData] = useState<ICategoryWithRelations[]>(defaultTableData);
   const [expanded, setExpanded] = useState<ExpandedState>({});
 
@@ -119,6 +133,14 @@ const Category = () => {
 
   return (
     <div>
+      <RippleButton
+        onClick={() => {
+          navigate("/categories/add");
+        }}
+      >
+        Add New Category
+      </RippleButton>
+      <Spacer height={10} />
       <Card className="flex flex-col md:flex-row md:items-start md:divide-x-2">
         <ul
           className="mr-4 flex list-none flex-row md:flex-col flex-wrap pl-0"
@@ -180,9 +202,6 @@ const Category = () => {
           </div>
         </div>
       </Card>
-      {/* <RippleButton circular>
-        <PlusIcon className="w-5 h-5" />
-      </RippleButton> */}
     </div>
   );
 };
