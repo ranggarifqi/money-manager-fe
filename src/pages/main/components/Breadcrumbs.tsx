@@ -12,19 +12,19 @@ const Breadcrumbs = ({ data }: Props) => {
         const isLastItem = index === arr.length - 1;
         if (br.link) {
           return (
-            <>
+            <div key={br.label}>
               <span>
                 <Link to={br.link ?? "#"}>{br.label}</Link>
               </span>
               {!isLastItem && <span>&nbsp;{">"}&nbsp;</span>}
-            </>
+            </div>
           );
         }
         return (
-          <>
+          <div key={br.label}>
             <span>{br.label}</span>
             {!isLastItem && <span>&nbsp;{">"}&nbsp;</span>}
-          </>
+          </div>
         );
       })}
     </div>
