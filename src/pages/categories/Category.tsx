@@ -16,59 +16,6 @@ import { useNavigate } from "react-router-dom";
 import ExpandRowIcon from "./commons/ExpandRowIcon";
 import ActionButtons from "./commons/ActionButtons";
 
-const defaultTableData: ICategoryWithRelations[] = [
-  {
-    id: "asd",
-    name: "Category 1",
-    isIncome: false,
-    parentId: null,
-    userId: "",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    Children: [
-      {
-        id: "zzz",
-        name: "Sub Category 1 - 1",
-        isIncome: false,
-        parentId: "asd",
-        userId: "",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    ],
-  },
-];
-
-const columnHelper = createColumnHelper<ICategoryWithRelations>();
-
-const columns = [
-  columnHelper.accessor("name", {
-    header: "Name",
-    cell: (info) => (
-      <div
-        className="flex items-center gap-x-2"
-        style={{ paddingLeft: info.row.depth * 2 + "rem" }}
-      >
-        <ExpandRowIcon
-          canExpand={info.row.getCanExpand()}
-          isExpanded={info.row.getIsExpanded()}
-          onExpand={info.row.getToggleExpandedHandler()}
-        />
-        {info.getValue()}
-      </div>
-    ),
-    footer: (info) => info.column.id,
-    size: 80,
-  }),
-  columnHelper.display({
-    header: "Actions",
-    cell: ({ row }) => {
-      return <ActionButtons id={row.original.id} />;
-    },
-    size: 10,
-  }),
-];
-
 const Category = () => {
   usePageTitle({
     title: "Categories",
@@ -162,5 +109,60 @@ const Category = () => {
     </div>
   );
 };
+
+const defaultTableData: ICategoryWithRelations[] = [
+  {
+    id: "asd",
+    name: "Category 1",
+    isIncome: false,
+    parentId: null,
+    userId: "",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    Children: [
+      {
+        id: "zzz",
+        name: "Sub Category 1 - 1",
+        isIncome: false,
+        parentId: "asd",
+        userId: "",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ],
+  },
+];
+
+const columnHelper = createColumnHelper<ICategoryWithRelations>();
+
+const columns = [
+  columnHelper.accessor("name", {
+    header: "Name",
+    cell: (info) => (
+      <div
+        className="flex items-center gap-x-2"
+        style={{ paddingLeft: info.row.depth * 2 + "rem" }}
+      >
+        <ExpandRowIcon
+          canExpand={info.row.getCanExpand()}
+          isExpanded={info.row.getIsExpanded()}
+          onExpand={info.row.getToggleExpandedHandler()}
+        />
+        {info.getValue()}
+      </div>
+    ),
+    footer: (info) => info.column.id,
+    size: 80,
+  }),
+  columnHelper.display({
+    header: "Actions",
+    cell: ({ row }) => {
+      return (
+        <ActionButtons id={row.original.id} categoryName={row.original.name} />
+      );
+    },
+    size: 10,
+  }),
+];
 
 export default Category;
