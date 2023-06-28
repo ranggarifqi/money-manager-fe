@@ -9,16 +9,12 @@ import { usePageTitle } from "../../commons/hooks/usePageTitle";
 import { useEffect, useState } from "react";
 import Card from "../../commons/components/Card";
 import { ICategoryWithRelations } from "../../commons/models/category";
-import {
-  ChevronDownIcon,
-  ChevronRightIcon,
-  PencilSquareIcon,
-  TrashIcon,
-} from "@heroicons/react/24/outline";
+import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 import Table from "../../commons/components/table/Table";
 import RippleButton from "../../commons/components/buttons/RippleButton";
 import Spacer from "../../commons/components/Spacer";
 import { useNavigate } from "react-router-dom";
+import ExpandRowIcon from "./commons/ExpandRowIcon";
 
 const defaultTableData: ICategoryWithRelations[] = [
   {
@@ -53,7 +49,7 @@ const columns = [
         className="flex items-center gap-x-2"
         style={{ paddingLeft: info.row.depth * 2 + "rem" }}
       >
-        <ExpandIcon
+        <ExpandRowIcon
           canExpand={info.row.getCanExpand()}
           isExpanded={info.row.getIsExpanded()}
           onExpand={info.row.getToggleExpandedHandler()}
@@ -72,28 +68,6 @@ const columns = [
     size: 10,
   }),
 ];
-
-interface ExpandIconProps {
-  canExpand: boolean;
-  isExpanded: boolean;
-  onExpand: () => void;
-}
-const ExpandIcon = ({ canExpand, isExpanded, onExpand }: ExpandIconProps) => {
-  if (canExpand) {
-    if (isExpanded) {
-      return (
-        <ChevronDownIcon
-          className="w-5 h-5 cursor-pointer"
-          onClick={onExpand}
-        />
-      );
-    }
-    return (
-      <ChevronRightIcon className="w-5 h-5 cursor-pointer" onClick={onExpand} />
-    );
-  }
-  return null;
-};
 
 interface ActionButtonsProps {
   id: string;
