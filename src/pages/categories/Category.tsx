@@ -1,10 +1,7 @@
 import {
   ExpandedState,
   createColumnHelper,
-  flexRender,
-  getCoreRowModel,
   getExpandedRowModel,
-  useReactTable,
 } from "@tanstack/react-table";
 import { usePageTitle } from "../../commons/hooks/usePageTitle";
 import { useState } from "react";
@@ -16,7 +13,7 @@ import {
   PencilSquareIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
-import classNames from "classnames";
+import Table from "../../commons/components/table/Table";
 
 const defaultTableData: ICategoryWithRelations[] = [
   {
@@ -112,59 +109,17 @@ const Category = () => {
   const [tableData] = useState<ICategoryWithRelations[]>(defaultTableData);
   const [expanded, setExpanded] = useState<ExpandedState>({});
 
-  const table = useReactTable({
-    data: tableData,
-    columns,
-    state: {
-      expanded,
-    },
-    onExpandedChange: setExpanded,
-    getCoreRowModel: getCoreRowModel(),
-    getExpandedRowModel: getExpandedRowModel(),
-    getSubRows: (row) => row.Children,
-    debugTable: true,
-  });
-
   return (
     <div>
       <Card>
-        <table className="min-w-full text-left text-sm font-light">
-          <thead className="border-b font-medium dark:border-neutral-500">
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  const headerClass = classNames("px-6 py-6");
-                  return (
-                    <th
-                      key={header.id}
-                      scope="col"
-                      className={headerClass}
-                      style={{ width: `${header.column.getSize()}%` }}
-                    >
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </th>
-                  );
-                })}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <tr key={row.id}>
-                {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className="whitespace-nowrap px-6 py-4">
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <Table
+          data={tableData}
+          columns={columns}
+          state={{ expanded }}
+          onExpandedChange={setExpanded}
+          getSubRows={(row) => row.Children}
+          getExpandedRowModel={getExpandedRowModel()}
+        />
       </Card>
     </div>
   );
