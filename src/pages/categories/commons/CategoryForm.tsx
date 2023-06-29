@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import * as yup from "yup";
 
 import Spacer from "../../../commons/components/Spacer";
