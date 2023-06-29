@@ -108,7 +108,7 @@ const CategoryForm = ({
           {...registeredParentId}
           errorText={errors.parentId?.message}
           initialValue={parentId}
-          disabled={!canChangeParent}
+          disabled={initialValues && !canChangeParent}
         />
       ) : (
         <SelectField
@@ -117,7 +117,7 @@ const CategoryForm = ({
           {...registeredParentId}
           errorText={errors.parentId?.message}
           initialValue={parentId}
-          disabled={!canChangeParent}
+          disabled={initialValues && !canChangeParent}
         />
       )}
 
@@ -138,7 +138,7 @@ const CategoryForm = ({
           registeredCategoryType.onChange(e);
           onChangeTypeSideEffect();
         }}
-        disabled={!canChangeType}
+        disabled={initialValues && !canChangeType}
       />
       <Spacer height={25} />
       {isLoading ? (
