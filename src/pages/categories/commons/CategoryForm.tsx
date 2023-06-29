@@ -30,20 +30,27 @@ const formSchema = yup
 type FormData = yup.InferType<typeof formSchema>;
 
 interface Props {
+  isLoading?: boolean;
   onCancel?: AnyCallback;
   onSubmit?: (data: FormData) => void;
   submissionError?: string;
   initialValues?: FormData;
 }
 
-const CategoryForm = ({ onCancel }: Props) => {
+const CategoryForm = ({
+  isLoading,
+  onCancel,
+  onSubmit: onSubmitCallback,
+  submissionError,
+}: Props) => {
   const [parentOptions, setParentOptions] =
     useState<SelectOption[]>(defaultParentOptions);
 
   const allIncomeCategories = useAppSelector(sltIncomeCategoryRaw);
   const allExpenseCategories = useAppSelector(sltExpenseCategoryRaw);
 
-  const { isSuccess, isLoading } = useFindCategoriesQuery();
+  const { isSuccess, isLoading: isFindCategoriesLoading } =
+    useFindCategoriesQuery();
 
   const {
     register,
@@ -81,12 +88,14 @@ const CategoryForm = ({ onCancel }: Props) => {
   }, [allExpenseCategories, allIncomeCategories, isSuccess, type, setValue]);
 
   const onSubmit = handleSubmit((data) => {
-    console.log({ data });
+    if (onSubmitCallback) {
+      onSubmitCallback(data);
+    }
   });
 
   return (
     <form onSubmit={onSubmit}>
-      {isLoading ? (
+      {isFindCategoriesLoading ? (
         <Spinner />
       ) : (
         <SelectField
@@ -112,12 +121,19 @@ const CategoryForm = ({ onCancel }: Props) => {
         errorText={errors.type?.message}
       />
       <Spacer height={25} />
-      <div className="flex gap-x-3 w-full justify-end">
-        <RippleButton bgColor="info" type="button" onClick={onCancel}>
-          Cancel
-        </RippleButton>
-        <RippleButton type="submit">Save</RippleButton>
-      </div>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <div className="flex gap-x-3 w-full justify-end">
+          <RippleButton bgColor="info" type="button" onClick={onCancel}>
+            Cancel
+          </RippleButton>
+          <RippleButton type="submit">Save</RippleButton>
+        </div>
+      )}
+      {!!submissionError && (
+        <p className="text-danger text-sm">{submissionError}</p>
+      )}
     </form>
   );
 };
