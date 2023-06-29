@@ -5,17 +5,25 @@ import {
 } from "@reduxjs/toolkit";
 import { ErrorResponse } from "../rootAPI";
 import { stringifyErrorMessage } from "../commons/stringifyErrorMessage";
-import { ICategory } from "../../commons/models/category";
+import {
+  ICategoryNormalized,
+  ICategoryWithRelations,
+  categoryListSchema,
+} from "../../commons/models/category";
 import { categoryAPI } from "./api";
+import { normalize } from "normalizr";
+import { CompleteNormalizedEntities } from "../../commons/models";
 
-type CategoryState = EntityState<ICategory> & {
+type CategoryState = EntityState<ICategoryNormalized> & {
+  raw: ICategoryWithRelations[];
   error: string | null;
 };
 
-export const categoryAdapter = createEntityAdapter<ICategory>();
+export const categoryAdapter = createEntityAdapter<ICategoryNormalized>();
 
 const initialState: CategoryState = {
   ...categoryAdapter.getInitialState(),
+  raw: [],
   error: null,
 };
 
@@ -34,11 +42,15 @@ export const slice = createSlice({
       categoryAPI.endpoints.findCategories.matchFulfilled,
       (state, action) => {
         categoryAdapter.removeAll(state);
-        categoryAdapter.upsertMany(state, action.payload.category ?? {});
-        categoryAdapter.upsertMany(
-          state,
-          action.payload.categoryChildren ?? {}
-        );
+
+        const normalized = normalize(
+          action.payload,
+          categoryListSchema
+        ) as CompleteNormalizedEntities;
+
+        categoryAdapter.upsertMany(state, normalized.category ?? {});
+        categoryAdapter.upsertMany(state, normalized.categoryChildren ?? {});
+        state.raw = action.payload;
       }
     );
     builder.addMatcher(

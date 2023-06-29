@@ -4,19 +4,14 @@ import {
   SuccessResponse,
   authorizedQuery,
 } from "../rootAPI";
-import { CompleteNormalizedEntities } from "../../commons/models";
-import { normalize } from "normalizr";
-import {
-  ICategoryWithRelations,
-  categoryListSchema,
-} from "../../commons/models/category";
+import { ICategoryWithRelations } from "../../commons/models/category";
 
 export const categoryAPI = createApi({
   reducerPath: "categoryApi",
   baseQuery: authorizedQuery,
   tagTypes: ["Category"],
   endpoints: (build) => ({
-    findCategories: build.query<CompleteNormalizedEntities, void>({
+    findCategories: build.query<ICategoryWithRelations[], void>({
       providesTags: ["Category"],
       query: () => {
         return {
@@ -28,8 +23,7 @@ export const categoryAPI = createApi({
       transformResponse: (
         response: SuccessResponse<ICategoryWithRelations[]>
       ) => {
-        const normalized = normalize(response.data, categoryListSchema);
-        return normalized.entities;
+        return response.data;
       },
       transformErrorResponse(baseQueryReturnValue: RootErrorResponse) {
         return baseQueryReturnValue.data;

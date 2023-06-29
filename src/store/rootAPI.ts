@@ -33,7 +33,11 @@ const baseAuthorizedQuery = fetchBaseQuery({
   },
 });
 
-export const authorizedQuery: BaseQueryFn = async (args, store, extraOptions) => {
+export const authorizedQuery: BaseQueryFn = async (
+  args,
+  store,
+  extraOptions
+) => {
   const tokenExpired =
     (store.getState() as RootState).session.credential?.exp ?? 0;
 
