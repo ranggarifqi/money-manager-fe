@@ -27,13 +27,15 @@ const SelectField = React.forwardRef<HTMLSelectElement, Props>(
       initTE({ Select });
     }, []);
 
+    const name = rest.name;
+
     useEffect(() => {
-      const selectEl = document.getElementById("select-field");
+      const selectEl = document.getElementById(`select-field-${name}`);
       if (selectEl) {
         const select = Select.getInstance(selectEl);
         select.setValue(initialValue);
       }
-    }, [initialValue]);
+    }, [initialValue, name]);
 
     const inputClassNames = classNames(defaultInputClassNames, {
       "ring-1 ring-danger outline-0": !!errorText,
@@ -54,7 +56,7 @@ const SelectField = React.forwardRef<HTMLSelectElement, Props>(
         <Spacer height={4} />
         <select
           ref={ref}
-          id="select-field"
+          id={`select-field-${rest.name}`}
           data-te-select-init
           data-te-class-select-input={inputClassNames}
           data-te-input-focused
