@@ -7,6 +7,8 @@ import NewAccount from "./pages/accounts/NewAccount";
 import EditAccount from "./pages/accounts/EditAccount";
 import AccountTransactions from "./pages/accounts/AccountTransactions";
 import Category from "./pages/categories/Category";
+import NewCategory from "./pages/categories/NewCategory";
+import EditCategory from "./pages/categories/EditCategory";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +38,14 @@ const router = createBrowserRouter([
       {
         path: "/categories",
         element: <Category />,
+      },
+      {
+        path: "/categories/add",
+        element: <NewCategory />,
+      },
+      {
+        path: "/categories/:categoryId/edit",
+        element: <EditCategory />,
       },
     ],
   },

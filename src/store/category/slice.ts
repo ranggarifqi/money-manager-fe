@@ -12,7 +12,6 @@ import {
 } from "../../commons/models/category";
 import { categoryAPI } from "./api";
 import { normalize } from "normalizr";
-import { CompleteNormalizedEntities } from "../../commons/models";
 
 type CategoryState = EntityState<ICategoryNormalized> & {
   raw: ICategoryWithRelations[];
@@ -43,13 +42,13 @@ export const slice = createSlice({
       (state, action) => {
         categoryAdapter.removeAll(state);
 
-        const normalized = normalize(
-          action.payload,
-          categoryListSchema
-        ) as CompleteNormalizedEntities;
+        const normalized = normalize(action.payload, categoryListSchema);
 
-        categoryAdapter.upsertMany(state, normalized.category ?? {});
-        categoryAdapter.upsertMany(state, normalized.categoryChildren ?? {});
+        categoryAdapter.upsertMany(state, normalized.entities.category ?? {});
+        categoryAdapter.upsertMany(
+          state,
+          normalized.entities.categoryChildren ?? {}
+        );
         state.raw = action.payload;
       }
     );

@@ -27,18 +27,22 @@ const SelectField = React.forwardRef<HTMLSelectElement, Props>(
       initTE({ Select });
     }, []);
 
+    const name = rest.name;
+
     useEffect(() => {
-      const selectEl = document.getElementById("select-field");
+      const selectEl = document.getElementById(`select-field-${name}`);
       if (selectEl) {
         const select = Select.getInstance(selectEl);
         select.setValue(initialValue);
       }
-    }, [initialValue]);
+    }, [initialValue, name]);
 
     const inputClassNames = classNames(defaultInputClassNames, {
       "ring-1 ring-danger outline-0": !!errorText,
       "focus:outline-0 focus:border-main focus:ring-1 focus:ring-main":
         !errorText,
+      "bg-white": !rest.disabled,
+      "bg-gray-300": rest.disabled,
     });
 
     const labelClassName = classNames(
@@ -54,7 +58,7 @@ const SelectField = React.forwardRef<HTMLSelectElement, Props>(
         <Spacer height={4} />
         <select
           ref={ref}
-          id="select-field"
+          id={`select-field-${rest.name}`}
           data-te-select-init
           data-te-class-select-input={inputClassNames}
           data-te-input-focused
@@ -78,7 +82,6 @@ const defaultInputClassNames = classNames(
   "block",
   "w-full",
   "h-10",
-  "bg-white",
   "border border-slate-300",
   "rounded-md",
   "text-sm",

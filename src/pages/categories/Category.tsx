@@ -112,7 +112,6 @@ const Category = () => {
                   onExpandedChange={setExpanded}
                   getSubRows={(row) => row.Children}
                   getExpandedRowModel={getExpandedRowModel()}
-                  debugTable
                 />
               </div>
               <div
@@ -128,7 +127,6 @@ const Category = () => {
                   onExpandedChange={setExpanded}
                   getSubRows={(row) => row.Children}
                   getExpandedRowModel={getExpandedRowModel()}
-                  debugTable
                 />
               </div>
             </div>
@@ -164,7 +162,11 @@ const columns = [
     header: "Actions",
     cell: ({ row }) => {
       return (
-        <ActionButtons id={row.original.id} categoryName={row.original.name} />
+        <ActionButtons
+          id={row.original.id}
+          categoryName={row.original.name}
+          hasChildren={row.getCanExpand()}
+        />
       );
     },
     size: 10,
