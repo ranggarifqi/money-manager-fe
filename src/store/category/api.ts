@@ -82,6 +82,23 @@ export const categoryAPI = createApi({
         return stringifyErrorMessage(baseQueryReturnValue.data.message);
       },
     }),
+
+    deleteCategory: build.mutation<null, { id: string }>({
+      invalidatesTags: ["Category"],
+      query: ({ id }) => {
+        return {
+          url: `/v1/categories/${id}`,
+          method: "DELETE",
+          credentials: "include",
+        };
+      },
+      transformResponse(response: SuccessResponse<null>) {
+        return response.data;
+      },
+      transformErrorResponse(baseQueryReturnValue: RootErrorResponse): string {
+        return stringifyErrorMessage(baseQueryReturnValue.data.message);
+      },
+    }),
   }),
 });
 
@@ -89,4 +106,5 @@ export const {
   useFindCategoriesQuery,
   useCreateCategoryMutation,
   useUpdateCategoryMutation,
+  useDeleteCategoryMutation,
 } = categoryAPI;
