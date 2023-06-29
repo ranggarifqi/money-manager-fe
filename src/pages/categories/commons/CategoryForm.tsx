@@ -43,15 +43,12 @@ const CategoryForm = ({
   onCancel,
   onSubmit: onSubmitCallback,
   submissionError,
+  initialValues,
 }: Props) => {
-  const [parentOptions, setParentOptions] =
-    useState<SelectOption[]>(defaultParentOptions);
-
   const allIncomeCategories = useAppSelector(sltIncomeCategoryRaw);
   const allExpenseCategories = useAppSelector(sltExpenseCategoryRaw);
 
-  const { isSuccess, isLoading: isFindCategoriesLoading } =
-    useFindCategoriesQuery();
+  const { isLoading: isFindCategoriesLoading } = useFindCategoriesQuery();
 
   const {
     register,
@@ -62,31 +59,22 @@ const CategoryForm = ({
   } = useForm<FormData>({
     resolver: yupResolver(formSchema),
     defaultValues: {
-      type: ETransactionType.EXPENSE,
-      parentId: NONE,
+      type: initialValues?.type ?? ETransactionType.EXPENSE,
+      parentId: initialValues?.parentId ?? NONE,
+      name: initialValues?.name ?? "",
     },
   });
 
+  /** Register */
+  const registeredParentId = register("parentId");
+  const registeredCategoryType = register("type");
+
   const type = watch("type");
+  const parentId = watch("parentId");
 
-  useEffect(() => {
-    if (isSuccess) {
-      let additionalParentOptions: SelectOption[] = [];
-
-      if (type === ETransactionType.EXPENSE) {
-        additionalParentOptions = allExpenseCategories.map<SelectOption>(
-          (v) => ({ label: v.name, value: v.id })
-        );
-      } else {
-        additionalParentOptions = allIncomeCategories.map<SelectOption>(
-          (v) => ({ label: v.name, value: v.id })
-        );
-      }
-
-      setValue("parentId", NONE);
-      setParentOptions([...defaultParentOptions, ...additionalParentOptions]);
-    }
-  }, [allExpenseCategories, allIncomeCategories, isSuccess, type, setValue]);
+  const onChangeTypeSideEffect = () => {
+    setValue("parentId", NONE);
+  };
 
   const onSubmit = handleSubmit((data) => {
     if (onSubmitCallback) {
@@ -94,16 +82,37 @@ const CategoryForm = ({
     }
   });
 
+  if (isFindCategoriesLoading) {
+    return <Spinner />;
+  }
+
+  const expenseParentOptions = allExpenseCategories.map<SelectOption>((v) => ({
+    label: v.name,
+    value: v.id,
+  }));
+
+  const incomeParentOptions = allIncomeCategories.map<SelectOption>((v) => ({
+    label: v.name,
+    value: v.id,
+  }));
+
   return (
     <form onSubmit={onSubmit}>
-      {isFindCategoriesLoading ? (
-        <Spinner />
+      {type === ETransactionType.EXPENSE ? (
+        <SelectField
+          label="Parent Category"
+          options={[...defaultParentOptions, ...expenseParentOptions]}
+          {...registeredParentId}
+          errorText={errors.parentId?.message}
+          initialValue={parentId}
+        />
       ) : (
         <SelectField
           label="Parent Category"
-          options={parentOptions}
-          {...register("parentId")}
+          options={[...defaultParentOptions, ...incomeParentOptions]}
+          {...registeredParentId}
           errorText={errors.parentId?.message}
+          initialValue={parentId}
         />
       )}
 
@@ -117,9 +126,13 @@ const CategoryForm = ({
       <SelectField
         label="Category Type"
         options={typeOptions}
-        initialValue={ETransactionType.EXPENSE}
-        {...register("type")}
+        initialValue={type}
+        {...registeredCategoryType}
         errorText={errors.type?.message}
+        onChange={(e) => {
+          registeredCategoryType.onChange(e);
+          onChangeTypeSideEffect();
+        }}
       />
       <Spacer height={25} />
       {isLoading ? (
