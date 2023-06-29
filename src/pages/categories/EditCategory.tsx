@@ -8,6 +8,8 @@ import { NONE } from "./commons/constants";
 import Card from "../../commons/components/Card";
 import CategoryForm from "./commons/CategoryForm";
 import { useEffect, useState } from "react";
+import Spacer from "../../commons/components/Spacer";
+import RippleButton from "../../commons/components/buttons/RippleButton";
 
 const EditCategory = () => {
   const { categoryId } = useParams();
@@ -36,6 +38,24 @@ const EditCategory = () => {
     setErrMessage(error as string);
   }, [error]);
 
+  if (!categoryId || !category) {
+    return (
+      <div className="flex justify-center">
+        <div className="flex flex-col justify-center">
+          <p>No Category Was Found</p>
+          <Spacer height={10} />
+          <RippleButton bgColor="info" onClick={() => navigate("/categories")}>
+            Go Back
+          </RippleButton>
+        </div>
+      </div>
+    );
+  }
+
+  if (isSuccess) {
+    return <Navigate to="/categories" />;
+  }
+
   const onSubmit = (data: { type: string; parentId: string; name: string }) => {
     if (data.parentId === categoryId) {
       setErrMessage("Category can't become a child of itself");
@@ -44,16 +64,13 @@ const EditCategory = () => {
 
     setErrMessage(undefined);
 
-    console.log({
+    updateCategory({
+      id: categoryId,
       name: data.name,
       parentId: data.parentId === NONE ? null : data.parentId,
       isIncome: data.type === ETransactionType.INCOME,
     });
   };
-
-  if (isSuccess) {
-    return <Navigate to="/categories" />;
-  }
 
   return (
     <div className="flex justify-center">
