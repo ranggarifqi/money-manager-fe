@@ -162,7 +162,11 @@ const columns = [
     header: "Actions",
     cell: ({ row }) => {
       return (
-        <ActionButtons id={row.original.id} categoryName={row.original.name} />
+        <ActionButtons
+          id={row.original.id}
+          categoryName={row.original.name}
+          hasChildren={row.getCanExpand()}
+        />
       );
     },
     size: 10,
