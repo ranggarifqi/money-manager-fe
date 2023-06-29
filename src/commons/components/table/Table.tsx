@@ -14,6 +14,12 @@ const Table = <T,>(props: TableProps<T>) => {
     ...props,
   });
 
+  if (table.getRowModel().rows.length === 0) {
+    return (
+      <div className="min-w-full h-full p-4 text-left text-sm font-light flex items-center justify-center">No Data</div>
+    );
+  }
+
   return (
     <table className="min-w-full text-left text-sm font-light">
       <thead className="border-b font-medium dark:border-neutral-500">
