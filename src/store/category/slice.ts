@@ -35,6 +35,10 @@ export const slice = createSlice({
       (state, action) => {
         categoryAdapter.removeAll(state);
         categoryAdapter.upsertMany(state, action.payload.category ?? {});
+        categoryAdapter.upsertMany(
+          state,
+          action.payload.categoryChildren ?? {}
+        );
       }
     );
     builder.addMatcher(

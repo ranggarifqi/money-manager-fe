@@ -17,6 +17,19 @@ export interface ICategoryWithRelations extends ICategory {
   // User?: IUser;
 }
 
+export interface ICategoryNormalized extends ICategory {
+  Parent?: string;
+  Children?: string[];
+}
+
 export const categorySchemaKey = "category";
-export const categorySchema = new schema.Entity(categorySchemaKey);
+export const categoryChildrenSchemaKey = "categoryChildren";
+
+export const categoryChildrenSchema = new schema.Entity(
+  categoryChildrenSchemaKey
+);
+export const categorySchema = new schema.Entity(categorySchemaKey, {
+  ["Children"]: [categoryChildrenSchema],
+});
+
 export const categoryListSchema = [categorySchema];
