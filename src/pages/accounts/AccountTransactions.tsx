@@ -7,7 +7,7 @@ import Spacer from "../../commons/components/Spacer";
 import AccountTransactionsCard from "./commons/TransactionList/AccountTransactionsCard";
 import AccountTransactionFilterCard from "./commons/TransactionList/AccountTransactionFilterCard";
 import { useFindTransactionByAccountQuery } from "../../store/transaction/api";
-import RippleButton from "../../commons/components/RippleButton";
+import RippleButton from "../../commons/components/buttons/RippleButton";
 import { useState } from "react";
 import { endOfMonth, format, startOfMonth } from "date-fns";
 import { DATE_ONLY_KEY } from "../../commons/lib/date";

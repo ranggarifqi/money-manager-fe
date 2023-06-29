@@ -1,6 +1,6 @@
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import Card from "../../../../commons/components/Card";
-import RippleButton from "../../../../commons/components/RippleButton";
+import RippleButton from "../../../../commons/components/buttons/RippleButton";
 import Spacer from "../../../../commons/components/Spacer";
 import MonthPicker from "../../../../commons/components/form/MonthPicker";
 

@@ -1,8 +1,8 @@
 import classNames from "classnames";
 import { ReactNode, useEffect } from "react";
 import { initTE, Button as TWButton, Ripple } from "tw-elements";
-import { IBackgroundColor, ITextColor } from "../types/color";
-import { buttonThemes } from "../lib/buttons";
+import { IBackgroundColor, ITextColor } from "../../types/color";
+import { buttonThemes } from "../../lib/buttons";
 
 interface OwnProps {
   children?: ReactNode;

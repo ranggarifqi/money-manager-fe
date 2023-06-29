@@ -1,4 +1,4 @@
-import { CurrencyDollarIcon, HomeIcon } from "@heroicons/react/24/outline";
+import { CurrencyDollarIcon, HomeIcon, TagIcon } from "@heroicons/react/24/outline";
 import SideNavMenuItem from "./SideNavMenuItem";
 import SideNavMenuGroup from "./SideNavMenuGroup";
 
@@ -11,6 +11,11 @@ const SideNavMenu = () => {
           label="Accounts"
           redirectTo="/accounts"
           Icon={CurrencyDollarIcon}
+        />
+        <SideNavMenuItem
+          label="Categories"
+          redirectTo="/categories"
+          Icon={TagIcon}
         />
       </SideNavMenuGroup>
     </ul>
