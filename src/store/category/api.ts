@@ -16,6 +16,13 @@ interface CreateCategoryDTO {
   isIncome?: boolean | null;
 }
 
+interface UpdateCategoryDTO {
+  id: string;
+  parentId?: string | null;
+  name?: string;
+  isIncome?: boolean | null;
+}
+
 export const categoryAPI = createApi({
   reducerPath: "categoryApi",
   baseQuery: authorizedQuery,
@@ -57,8 +64,29 @@ export const categoryAPI = createApi({
         return stringifyErrorMessage(baseQueryReturnValue.data.message);
       },
     }),
+
+    updateCategory: build.mutation<ICategory, UpdateCategoryDTO>({
+      invalidatesTags: ["Category"],
+      query: ({ id, ...payload }) => {
+        return {
+          url: `/v1/categories/${id}`,
+          method: "PATCH",
+          body: payload,
+          credentials: "include",
+        };
+      },
+      transformResponse(response: SuccessResponse<ICategory>) {
+        return response.data;
+      },
+      transformErrorResponse(baseQueryReturnValue: RootErrorResponse): string {
+        return stringifyErrorMessage(baseQueryReturnValue.data.message);
+      },
+    }),
   }),
 });
 
-export const { useFindCategoriesQuery, useCreateCategoryMutation } =
-  categoryAPI;
+export const {
+  useFindCategoriesQuery,
+  useCreateCategoryMutation,
+  useUpdateCategoryMutation,
+} = categoryAPI;
