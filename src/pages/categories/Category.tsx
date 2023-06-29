@@ -112,7 +112,6 @@ const Category = () => {
                   onExpandedChange={setExpanded}
                   getSubRows={(row) => row.Children}
                   getExpandedRowModel={getExpandedRowModel()}
-                  debugTable
                 />
               </div>
               <div
@@ -128,7 +127,6 @@ const Category = () => {
                   onExpandedChange={setExpanded}
                   getSubRows={(row) => row.Children}
                   getExpandedRowModel={getExpandedRowModel()}
-                  debugTable
                 />
               </div>
             </div>

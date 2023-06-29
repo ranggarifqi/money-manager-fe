@@ -18,6 +18,7 @@ import { AnyCallback } from "../../../commons/types/general";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import RippleButton from "../../../commons/components/buttons/RippleButton";
+import { NONE } from "./constants";
 
 const formSchema = yup
   .object({
@@ -132,7 +133,10 @@ const CategoryForm = ({
         </div>
       )}
       {!!submissionError && (
-        <p className="text-danger text-sm">{submissionError}</p>
+        <>
+          <Spacer height={10} />
+          <p className="text-danger text-sm">{submissionError}</p>
+        </>
       )}
     </form>
   );
@@ -142,8 +146,6 @@ const typeOptions: SelectOption[] = [
   { label: ETransactionType.EXPENSE, value: ETransactionType.EXPENSE },
   { label: ETransactionType.INCOME, value: ETransactionType.INCOME },
 ];
-
-const NONE = "None";
 
 const defaultParentOptions: SelectOption[] = [{ label: NONE, value: NONE }];
 
