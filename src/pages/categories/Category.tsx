@@ -18,7 +18,10 @@ import ActionButtons from "./commons/ActionButtons";
 import { useFindCategoriesQuery } from "../../store/category/api";
 import Spinner from "../../commons/components/Spinner";
 import { useAppSelector } from "../../commons/hooks/useAppSelector";
-import { sltCategoryRaw } from "../../store/category/selectors";
+import {
+  sltExpenseCategoryRaw,
+  sltIncomeCategoryRaw,
+} from "../../store/category/selectors";
 
 const Category = () => {
   usePageTitle({
@@ -32,7 +35,8 @@ const Category = () => {
 
   const navigate = useNavigate();
 
-  const allCategories = useAppSelector(sltCategoryRaw);
+  const allIncomeCategories = useAppSelector(sltIncomeCategoryRaw);
+  const allExpenseCategories = useAppSelector(sltExpenseCategoryRaw);
 
   const [expanded, setExpanded] = useState<ExpandedState>({});
 
@@ -102,7 +106,7 @@ const Category = () => {
                 data-te-tab-active
               >
                 <Table
-                  data={allCategories}
+                  data={allIncomeCategories}
                   columns={columns}
                   state={{ expanded }}
                   onExpandedChange={setExpanded}
@@ -117,7 +121,15 @@ const Category = () => {
                 role="tabpanel"
                 aria-labelledby="tabs-expenses"
               >
-                <p>Expenses Table</p>
+                <Table
+                  data={allExpenseCategories}
+                  columns={columns}
+                  state={{ expanded }}
+                  onExpandedChange={setExpanded}
+                  getSubRows={(row) => row.Children}
+                  getExpandedRowModel={getExpandedRowModel()}
+                  debugTable
+                />
               </div>
             </div>
           </>

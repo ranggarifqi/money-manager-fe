@@ -22,3 +22,17 @@ export const sltCategoryRaw = createSelector(
   [sltCategory],
   (category) => category.raw
 );
+
+export const sltIncomeCategoryRaw = createSelector(
+  sltCategoryRaw,
+  (categories) => {
+    return categories.filter((v) => v.isIncome);
+  }
+);
+
+export const sltExpenseCategoryRaw = createSelector(
+  sltCategoryRaw,
+  (categories) => {
+    return categories.filter((v) => !v.isIncome);
+  }
+);
