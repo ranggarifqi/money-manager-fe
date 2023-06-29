@@ -41,6 +41,8 @@ const SelectField = React.forwardRef<HTMLSelectElement, Props>(
       "ring-1 ring-danger outline-0": !!errorText,
       "focus:outline-0 focus:border-main focus:ring-1 focus:ring-main":
         !errorText,
+      "bg-white": !rest.disabled,
+      "bg-gray-300": rest.disabled,
     });
 
     const labelClassName = classNames(
@@ -80,7 +82,6 @@ const defaultInputClassNames = classNames(
   "block",
   "w-full",
   "h-10",
-  "bg-white",
   "border border-slate-300",
   "rounded-md",
   "text-sm",
