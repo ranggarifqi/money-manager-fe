@@ -35,6 +35,8 @@ interface Props {
   onSubmit?: (data: FormData) => void;
   submissionError?: string;
   initialValues?: FormData;
+  canChangeParent?: boolean;
+  canChangeType?: boolean;
 }
 
 const CategoryForm = ({
@@ -43,6 +45,8 @@ const CategoryForm = ({
   onSubmit: onSubmitCallback,
   submissionError,
   initialValues,
+  canChangeParent,
+  canChangeType,
 }: Props) => {
   const allIncomeCategories = useAppSelector(sltIncomeCategoryRaw);
   const allExpenseCategories = useAppSelector(sltExpenseCategoryRaw);
@@ -104,6 +108,7 @@ const CategoryForm = ({
           {...registeredParentId}
           errorText={errors.parentId?.message}
           initialValue={parentId}
+          disabled={!canChangeParent}
         />
       ) : (
         <SelectField
@@ -112,6 +117,7 @@ const CategoryForm = ({
           {...registeredParentId}
           errorText={errors.parentId?.message}
           initialValue={parentId}
+          disabled={!canChangeParent}
         />
       )}
 
@@ -132,6 +138,7 @@ const CategoryForm = ({
           registeredCategoryType.onChange(e);
           onChangeTypeSideEffect();
         }}
+        disabled={!canChangeType}
       />
       <Spacer height={25} />
       {isLoading ? (

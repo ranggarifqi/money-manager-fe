@@ -87,6 +87,8 @@ const EditCategory = () => {
               ? ETransactionType.INCOME
               : ETransactionType.EXPENSE,
           }}
+          canChangeParent={(category.Children?.length ?? 0) === 0}
+          canChangeType={(category.Children?.length ?? 0) === 0}
         />
       </Card>
     </div>
