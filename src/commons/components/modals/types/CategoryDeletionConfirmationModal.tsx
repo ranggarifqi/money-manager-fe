@@ -67,6 +67,13 @@ const CategoryDeletionConfirmationModal = () => {
           <p>You're going to delete this category.</p>
           <p>This action can't be undone!</p>
         </div>
+        <Spacer height={10} />
+        <div>
+          <p>
+            But don't worry, any transactions created using this category would
+            not be deleted
+          </p>
+        </div>
         <Spacer height={20} />
         <div>
           <p>Please type the category's name to continue this operation</p>
