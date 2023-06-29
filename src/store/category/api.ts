@@ -83,9 +83,9 @@ export const categoryAPI = createApi({
       },
     }),
 
-    deleteCategory: build.mutation<null, { id: string }>({
+    deleteCategory: build.mutation<null, string>({
       invalidatesTags: ["Category"],
-      query: ({ id }) => {
+      query: (id) => {
         return {
           url: `/v1/categories/${id}`,
           method: "DELETE",

@@ -12,6 +12,8 @@ import RippleButton from "../../buttons/RippleButton";
 import TextInput from "../../form/TextInput";
 import Spacer from "../../Spacer";
 import { useEffect, useState } from "react";
+import { useDeleteCategoryMutation } from "../../../../store/category/api";
+import Spinner from "../../Spinner";
 
 export interface CategoryDeletionConfirmationProps {
   categoryId: string;
@@ -34,8 +36,8 @@ const CategoryDeletionConfirmationModal = () => {
 
   const [accountNameConfirm, setAccountNameConfirm] = useState("");
 
-  // const [deleteAccountById, { isLoading, error, isError, isSuccess }] =
-  //   useDeleteAccountByIdMutation();
+  const [deleteCategoryById, { isLoading, error, isError, isSuccess }] =
+    useDeleteCategoryMutation();
 
   useEffect(() => {
     if (activeModal === null) {
@@ -43,11 +45,11 @@ const CategoryDeletionConfirmationModal = () => {
     }
   }, [activeModal]);
 
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     dispatch(closeModal());
-  //   }
-  // }, [dispatch, isSuccess]);
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(closeModal());
+    }
+  }, [dispatch, isSuccess]);
 
   if (!isCorrectProp(props)) {
     return <></>;
@@ -58,9 +60,9 @@ const CategoryDeletionConfirmationModal = () => {
       isOpen={activeModal === ModalType.CATEGORY_DELETION_CONFIRMATION}
       title="Category Deletion Confirmation"
       onClose={() => dispatch(closeModal())}
-      // isCloseButtonShown={!isLoading}
-      // canOutsideClickClose={!isLoading}
-      // canEscapeKeyClose={!isLoading}
+      isCloseButtonShown={!isLoading}
+      canOutsideClickClose={!isLoading}
+      canEscapeKeyClose={!isLoading}
     >
       <DialogBody>
         <div>
@@ -81,35 +83,20 @@ const CategoryDeletionConfirmationModal = () => {
             placeholder={props.categoryName}
             value={accountNameConfirm}
             onChange={(e) => setAccountNameConfirm(e.target.value)}
-            // disabled={isLoading}
+            disabled={isLoading}
           />
         </div>
-        {/* {isError && (
+        {isError && (
           <div>
             <Spacer height={10} />
             <p className="text-danger">{error as string}</p>
           </div>
-        )} */}
+        )}
       </DialogBody>
       <DialogFooter
         actions={
           <div className="flex gap-x-2">
-            <>
-              <RippleButton
-                bgColor="info"
-                onClick={() => dispatch(closeModal())}
-              >
-                Cancel
-              </RippleButton>
-              <RippleButton
-                bgColor="danger"
-                isDisabled={accountNameConfirm !== props.categoryName}
-                // onClick={() => deleteAccountById(props.categoryId)}
-              >
-                Delete
-              </RippleButton>
-            </>
-            {/* {isLoading ? (
+            {isLoading ? (
               <Spinner />
             ) : (
               <>
@@ -122,12 +109,12 @@ const CategoryDeletionConfirmationModal = () => {
                 <RippleButton
                   bgColor="danger"
                   isDisabled={accountNameConfirm !== props.categoryName}
-                  // onClick={() => deleteAccountById(props.categoryId)}
+                  onClick={() => deleteCategoryById(props.categoryId)}
                 >
                   Delete
                 </RippleButton>
               </>
-            )} */}
+            )}
           </div>
         }
       ></DialogFooter>
